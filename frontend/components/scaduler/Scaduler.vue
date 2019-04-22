@@ -3,11 +3,11 @@
     <v-flex xs12 sm4 md4 class="my-2 px-1">
       <v-date-picker
         ref="picker"
-        v-model="date"
         full-width
         show-current
         first-day-of-week="1"
         locale="ko-kr"
+        v-model="date"
       ></v-date-picker>
     </v-flex>
 
@@ -19,7 +19,7 @@
             <v-list-tile
             v-for="(note, index) in notes"
             :key="note.content"
-            @click="selectDate(index)"
+            @click="selectScadule(index)"
             >
               <v-list-tile-content>
                 <v-list-tile-title>{{note.title}}</v-list-tile-title>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+  // import { mapMutations } from 'vuex'
   import { getScadule } from '@/api'
   import ScadulModal from '@/components/scaduler/ScadulModal'
 
@@ -60,7 +61,7 @@
     },
     data: () => ({
       dialog: false,
-      date: null,
+      // date: null,
       noteidx: 0,
       notes: [{
         title: null,
@@ -75,7 +76,7 @@
       }]
     }),
     methods: {
-      selectDate (index) {
+      selectScadule (index) {
         this.noteidx = index
       }
     },
@@ -83,17 +84,24 @@
       // getScadule () {
       //   return API.getScadule()
       // }
-    },
-    watch: {
-      date (date) {
-        /* 해당날짜 일정리스트 가져오기 */
-        console.log(date)
-        this.notes = getScadule()
+
+      date: {
+        get () {
+          return this.$store.state.date
+        },
+        set (date) {
+          this.$store.commit('setdate', date)
+        }
       }
     },
+    watch: {
+      // date (date) {
+      //   /* 해당날짜 일정리스트 가져오기 */
+      //   console.log(date)
+      //   this.notes = getScadule()
+      // }
+    },
     created () {
-    // can use Data(this.title, this.titleComputed ...), events(vm.$on, vm.$once, vm.$off, vm.$emit)
-      this.date = new Date().toISOString().substr(0, 10)
       this.notes = getScadule()
     }
   }

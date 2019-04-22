@@ -19,12 +19,31 @@ void (function updateModules() {
   // Enforce store modules
   store.modules = store.modules || {}
 
+  resolveStoreModules(require('@/store/type.js'), 'type.js')
+  resolveStoreModules(require('@/store/modules/autho-logic/index.js'), 'modules/autho-logic/index.js')
+  resolveStoreModules(require('@/store/modules/scaduler/index.js'), 'modules/scaduler/index.js')
+  resolveStoreModules(require('@/store/modules/autho-logic/actions.js'), 'modules/autho-logic/actions.js')
+  resolveStoreModules(require('@/store/modules/autho-logic/getters.js'), 'modules/autho-logic/getters.js')
+  resolveStoreModules(require('@/store/modules/autho-logic/mutations.js'), 'modules/autho-logic/mutations.js')
+  resolveStoreModules(require('@/store/modules/scaduler/actions.js'), 'modules/scaduler/actions.js')
+  resolveStoreModules(require('@/store/modules/scaduler/getters.js'), 'modules/scaduler/getters.js')
+  resolveStoreModules(require('@/store/modules/scaduler/mutations.js'), 'modules/scaduler/mutations.js')
+
   // If the environment supports hot reloading...
 
   if (process.client && module.hot) {
     // Whenever any Vuex module is updated...
     module.hot.accept([
       '@/store/index.js',
+      '@/store/type.js',
+      '@/store/modules/autho-logic/index.js',
+      '@/store/modules/scaduler/index.js',
+      '@/store/modules/autho-logic/actions.js',
+      '@/store/modules/autho-logic/getters.js',
+      '@/store/modules/autho-logic/mutations.js',
+      '@/store/modules/scaduler/actions.js',
+      '@/store/modules/scaduler/getters.js',
+      '@/store/modules/scaduler/mutations.js',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()
