@@ -1,5 +1,6 @@
 var environment = {
-  API_URL: 'http://',
+  API_URL: 'http://localhost:9102',
+  API_URL_BROWSER: 'http://localhost:9102',
   PROXY: false,
   DEBUG: true,
   RETRIES: 2
@@ -10,7 +11,7 @@ module.exports = {
   ** Headers of the page
   */
   env: {
-    // baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseURL: process.env.BASE_URL || 'http://localhost:9102'
   },
   modules: [
     '@nuxtjs/pwa',
@@ -18,12 +19,17 @@ module.exports = {
   ],
   axios: {
     // proxyHeaders: false
-    baseUrl: environment.API_URL,
-    proxy: environment.PROXY,
-    debug: environment.DEBUG,
-    retry: {
-      retries: environment.RETRIES
-    }
+    baseURL: environment.API_URL,
+    browserBaseURL: environment.API_URL_BROWSER,
+    proxy: environment.PROXY
+    // debug: environment.DEBUG,
+    // retry: {
+    //   retries: environment.RETRIES
+    // }    requestInterceptor: (config, {store}) => {
+    //   config.headers.common['Authorization'] = '';
+    //   config.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;application/json';
+    //   return config
+    // }
   },
   head: {
     title: 'thecook-admin',

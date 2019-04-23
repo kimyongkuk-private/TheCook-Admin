@@ -10,10 +10,10 @@ import mutations from './mutations'
 // // if in browser, use pre-fetched state injected by SSR
 // const state = (inBrowser && window.__INITIAL_STATE__) ? window.__INITIAL_STATE__.page : defaultState
 
-const state = {
+const state = () => [{
   user_name: null,
   token: null
-}
+}]
 export default {
   state,
   actions,
