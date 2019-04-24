@@ -3,8 +3,8 @@ import { SCADULE, DETAIL } from './getter-types'
 export default {
   [SCADULE] (state) {
     return state.scadule
-  }, // -> namespaced ? getters['posts/scadule'] : getters['scaduler/posts/scadule']
-  [DETAIL] (state, datailIdx) {
-    return state.scadule
-  } // -> namespaced ? getters['posts/scadule'] : getters['scaduler/posts/scadule']
+  }, // getters['scaduler/posts/get_scadule']
+  [DETAIL] (state, getters, rootState, rootGetters) {
+    return state.scadule[rootGetters['scaduler/get_post_idx']]
+  } // getters[scaduler/posts/get_detail']
 }

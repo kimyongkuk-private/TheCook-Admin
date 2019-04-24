@@ -48,44 +48,48 @@
     </v-flex>
      </no-ssr>
   </v-layout>
-  
 </template>
 
 <script>
-  // import { mapMutations } from 'vuex'
+  import { mapGetters, mapMutations, mapActions } from 'vuex'
   import ScadulModal from '@/components/scaduler/ScadulModal'
 
   export default {
     components: {
       'Modal': ScadulModal
     },
-    data: () => ({
-    }),
+    data () {
+      return {
+      }
+    },
     methods: {
+      ...mapMutations({
+        setIdxPost: 'scaduler/set_post_idx'
+      }),
+      ...mapActions({
+        setDate: 'scaduler/setDate'
+      }),
       setPostidx (postIdx) {
-        this.$store.commit('scaduler/set_post_idx', postIdx)
+        this.setIdxPost(postIdx)
       }
     },
     computed: {
+      ...mapGetters({
+        getDate: 'scaduler/get_date',
+        getScadule: 'scaduler/posts/get_scadule',
+        getDetail: 'scaduler/posts/get_detail'
+      }),
       date: {
-        get () {
-          return this.$store.getters['scaduler/get_date']
-        },
-        set (date) {
-          this.$store.dispatch('scaduler/setDate', date)
-        }
+        get: function () { return this.getDate },
+        set: function (date) { this.setDate(date) }
       },
-      posts () {
-        return this.$store.getters['scaduler/posts/get_scadule']
-      },
-      datail () {
-        return this.$store.getters['scaduler/posts/get_detail'][this.$store.getters['scaduler/get_post_idx']]
-      }
+      posts () { return this.getScadule },
+      datail () { return this.getDetail }
     },
     watch: {
     },
     created () {
-      this.$store.dispatch('scaduler/setDate', new Date().toISOString().substr(0, 10))
+      this.setDate(new Date().toISOString().substr(0, 10))
     }
   }
 </script>
