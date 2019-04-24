@@ -79,6 +79,7 @@
         return this.$store.getters['scaduler/posts/get_scadule']
       },
       datail () {
+        console.log(this.$store.getters['get_user'])
         return this.$store.getters['scaduler/posts/get_detail'][this.$store.getters['scaduler/get_post_idx']]
       }
     },
@@ -110,5 +111,5 @@
     .scaduler_fab
       z-index 9999
 ::-webkit-scrollbar
-  display none;
+  display none
 </style>

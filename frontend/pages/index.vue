@@ -12,6 +12,7 @@ import NewFeed from '@/components/feed/NewFeed'
 
 export default {
   layout: 'default',
+  // middleware: 'auth',
   components: {
     Scaduler,
     Feed,

@@ -20,10 +20,18 @@ void (function updateModules() {
   store.modules = store.modules || {}
 
   resolveStoreModules(require('@/store/type.js'), 'type.js')
+  resolveStoreModules(require('@/store/scaduler/mutations.js'), 'scaduler/mutations.js')
+  resolveStoreModules(require('@/store/scaduler/actions.js'), 'scaduler/actions.js')
+  resolveStoreModules(require('@/store/scaduler/getters.js'), 'scaduler/getters.js')
+  resolveStoreModules(require('@/store/scaduler/state.js'), 'scaduler/state.js')
   resolveStoreModules(require('@/store/modules/autho-logic/index.js'), 'modules/autho-logic/index.js')
   resolveStoreModules(require('@/store/modules/autho-logic/actions.js'), 'modules/autho-logic/actions.js')
   resolveStoreModules(require('@/store/modules/autho-logic/getters.js'), 'modules/autho-logic/getters.js')
+  resolveStoreModules(require('@/store/scaduler/posts/getters.js'), 'scaduler/posts/getters.js')
+  resolveStoreModules(require('@/store/scaduler/posts/mutations.js'), 'scaduler/posts/mutations.js')
+  resolveStoreModules(require('@/store/scaduler/posts/state.js'), 'scaduler/posts/state.js')
   resolveStoreModules(require('@/store/modules/autho-logic/mutations.js'), 'modules/autho-logic/mutations.js')
+  resolveStoreModules(require('@/store/scaduler/posts/actions.js'), 'scaduler/posts/actions.js')
 
   // If the environment supports hot reloading...
 
@@ -32,10 +40,18 @@ void (function updateModules() {
     module.hot.accept([
       '@/store/index.js',
       '@/store/type.js',
+      '@/store/scaduler/mutations.js',
+      '@/store/scaduler/actions.js',
+      '@/store/scaduler/getters.js',
+      '@/store/scaduler/state.js',
       '@/store/modules/autho-logic/index.js',
       '@/store/modules/autho-logic/actions.js',
       '@/store/modules/autho-logic/getters.js',
+      '@/store/scaduler/posts/getters.js',
+      '@/store/scaduler/posts/mutations.js',
+      '@/store/scaduler/posts/state.js',
       '@/store/modules/autho-logic/mutations.js',
+      '@/store/scaduler/posts/actions.js',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()

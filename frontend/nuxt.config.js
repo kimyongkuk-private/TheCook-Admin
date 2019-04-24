@@ -10,6 +10,9 @@ module.exports = {
   /*
   ** Headers of the page
   */
+  router: {
+    middleware: 'auth'
+  },
   env: {
     baseURL: process.env.BASE_URL || 'http://localhost:9102'
   },
