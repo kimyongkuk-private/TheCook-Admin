@@ -1,9 +1,10 @@
+import { DATE, INDEX_POST } from './getter-types'
 // SCADULER GETTERS
 export default {
-  get_date (state) {
+  [DATE] (state) {
     return state.date
   }, // -> getters['scaduler/get_date']
-  get_post_idx (state) {
+  [INDEX_POST] (state) {
     return state.post_idx
   }
 }

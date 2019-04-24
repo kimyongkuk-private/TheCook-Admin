@@ -1,6 +1,8 @@
+import { SCADULE } from './mutation-types'
+
 // SCADULER/POST MUTATIONS
 export default {
-  set_scadule (state, scadule) {
+  [SCADULE] (state, scadule) {
     state.scadule = scadule
   }
 }// ->store.commit('scadule/posts/set_scadule', { : 10})

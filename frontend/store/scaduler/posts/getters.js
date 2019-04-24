@@ -1,9 +1,10 @@
+import { SCADULE, DETAIL } from './getter-types'
 // SCADULER/POSTS GETTERS
 export default {
-  get_scadule (state) {
+  [SCADULE] (state) {
     return state.scadule
   }, // -> namespaced ? getters['posts/scadule'] : getters['scaduler/posts/scadule']
-  get_detail (state, datailIdx) {
+  [DETAIL] (state, datailIdx) {
     return state.scadule
   } // -> namespaced ? getters['posts/scadule'] : getters['scaduler/posts/scadule']
 }

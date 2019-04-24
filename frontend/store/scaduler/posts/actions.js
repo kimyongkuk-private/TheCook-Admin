@@ -1,6 +1,7 @@
+import { SCADULE } from './action-types'
 // SCADULER/POSTS ACTIONS 비동기
 export default {
-  async getScadule ({ commit, state }) {
+  async [SCADULE] ({ commit, state }) {
     // state.scadule = API.getScadule
     try {
       await this.$axios.get('/scadule').then(response => commit('set_scadule', response.data)
