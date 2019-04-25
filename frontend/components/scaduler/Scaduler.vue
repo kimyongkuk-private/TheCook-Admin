@@ -1,16 +1,54 @@
+
 <template>
-  <v-layout justify-space-between wrap>
-    <v-flex xs12 sm4 md4 class="my-2 px-1">
-      <v-date-picker
+  <v-layout justify-space-between wrap v-resize="checkMobile" >
+    <v-flex xs12 sm8 md8 class="my-4 px-1">
+    <v-flex xs12 class="my-1 px-1">
+        <v-menu
+          v-model="picker_status"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          max-width="!isMobile ? 460px : 320px"
+          min-width="!isMobile ? 460px : 320px"
+          locale="ko-kr"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              reverse
+              v-model="date"
+              label="date"
+              :hint=" date "
+              persistent-hint
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker :landscape="!isMobile"  :reactive="true" v-model="date" @input="picker_status=false" locale="ko-kr"></v-date-picker>
+        </v-menu>
+
+      <!-- <v-date-picker
         ref="picker"
         full-width
         show-current
         first-day-of-week="1"
         locale="ko-kr"
         v-model="date"
-      ></v-date-picker>
+      ></v-date-picker> -->
     </v-flex>
-
+     <no-ssr>
+    <v-flex xs12 class="my-2 px-1">
+      <v-subheader >{{ datail.title + ' ' + datail.time}}</v-subheader>
+      <ul class="ma-3">
+        <li>일정 상세내용<br/>{{ datail.content }}</li>
+        <li>주소<br/><a :href="'https://www.google.co.kr/maps/search/'+datail.address ">{{ datail.address }}</a></li>
+        <li>전화<br/><a :href="'tel:'+datail.tel ">{{ datail.tel }}</a></li>
+        <li>대금<br/>{{ datail.cost }} 원</li>
+      </ul>
+    </v-flex>
+     </no-ssr>
+</v-flex>
     <v-flex xs12 sm4 md4 class="my-2 px-1 scheduler_wrap">
       <div class="scheduler">
        <div class="scaduleTitle">{{ date || '날짜를 선택해주세요' }}</div>
@@ -18,7 +56,7 @@
         <v-list  two-line>
             <v-list-tile
             v-for="(post, index) in posts"
-            :key="post.content"
+            :key="post.id"
             @click="setPostidx(index)"
             >
               <v-list-tile-content>
@@ -36,38 +74,31 @@
     <Modal v-bind:date="date"/>
 
     </v-flex>
-     <no-ssr>
-    <v-flex xs12 sm4 md4 class="my-2 px-1">
-      <v-subheader >{{ datail.title + ' ' + datail.time}}</v-subheader>
-      <ul class="ma-3">
-        <li>일정 상세내용<br/>{{ datail.content }}</li>
-        <li>주소<br/><a :href="'https://www.google.co.kr/maps/search/'+datail.address ">{{ datail.address }}</a></li>
-        <li>전화<br/><a :href="'tel:'+datail.tel ">{{ datail.tel }}</a></li>
-        <li>대금<br/>{{ datail.cost }} 원</li>
-      </ul>
-    </v-flex>
-     </no-ssr>
+
   </v-layout>
 </template>
 
 <script>
+  import IsMobile from '@/mixin/isMobile'
   import { mapGetters, mapMutations, mapActions } from 'vuex'
   import ScadulModal from '@/components/scaduler/ScadulModal'
 
   export default {
+    mixins: [IsMobile],
     components: {
       'Modal': ScadulModal
     },
     data () {
       return {
+        picker_status: false
       }
     },
     methods: {
       ...mapMutations({
-        setIdxPost: 'scaduler/set_post_idx'
+        setIdxPost: 'main/scaduler/set_post_idx'
       }),
       ...mapActions({
-        setDate: 'scaduler/setDate'
+        setDate: 'main/setDate'
       }),
       setPostidx (postIdx) {
         this.setIdxPost(postIdx)
@@ -75,9 +106,9 @@
     },
     computed: {
       ...mapGetters({
-        getDate: 'scaduler/get_date',
-        getScadule: 'scaduler/posts/get_scadule',
-        getDetail: 'scaduler/posts/get_detail'
+        getDate: 'main/get_date',
+        getScadule: 'main/scaduler/posts/get_scadule',
+        getDetail: 'main/scaduler/posts/get_detail'
       }),
       date: {
         get: function () { return this.getDate },
@@ -94,7 +125,7 @@
   }
 </script>
 
-<style lang="stylus" scope="this api replaced by slot-scope in 2.5.0+">
+<style lang="stylus" scoped>
 @require '~assets/style/variables'
 .v-date-picker-title__date
   font-size 25px
@@ -102,7 +133,7 @@
   position relative
   .scheduler
     position relative
-    height 365px
+    height calc(100vh - 100px)
     overflow-y scroll
     -ms-overflow-style none
     box-shadow default

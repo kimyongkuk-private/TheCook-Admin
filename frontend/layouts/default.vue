@@ -7,6 +7,11 @@
       fixed
       app
     >
+    <v-container class="text-xs-center">
+      Thecook
+       <v-img src="http://xn--9m1bl55c.kr/theme/company/img/bg.jpg" aspect-ratio="1.7"></v-img>
+      주방설비 1번지 (주) 더쿡
+    </v-container>
       <v-list>
         <v-list-tile
           router
@@ -23,6 +28,9 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
+        <v-footer fixed class="pa-3 justify-center">
+          <span class="pa-1">한국어</span>|<span  class="pa-1">汉浯</span>  
+        </v-footer>
     </v-navigation-drawer>
     <v-toolbar fixed app :clipped-left="clipped" class="nav">
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
@@ -67,7 +75,9 @@
       v-model="rightDrawer"
       fixed
     >
+
       <v-list>
+        
         <v-list-tile
           router
           :to="item.to"
@@ -85,10 +95,12 @@
 
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; The Cook {{ new Date().getFullYear() }}</span>
+    <v-footer  app>
+      <p class="ma-2">&copy; The Cook {{ new Date().getFullYear() }}</p>
       <v-spacer></v-spacer>
-      <span class="text-lg-right">로그인 중입니다</span>
+      <p class="target"> <span>더쿡을 찾아주신 고객님을 환영합니다</span> </p>
+      <v-spacer></v-spacer>
+      <p class="text-lg-right ma-2">로그인 중입니다</p>
     </v-footer>
   </v-app>
 </template>
@@ -107,10 +119,10 @@ export default {
       drawer: true,
       fixed: false,
       items: [
-        { icon: 'apps', title: 'Main', to: '/' },
-        { icon: 'bubble_chart', title: 'Product', to: '/product' },
-        { icon: 'bubble_chart', title: '임시', to: '/login' },
-        { icon: 'bubble_chart', title: '임시', to: '/' }
+        { icon: 'home', title: '홈', to: '/' },
+        { icon: 'rss_feed', title: '피드', to: '/feeds' },
+        { icon: 'calendar_today', title: '스케줄', to: '/scaduler' },
+        { icon: 'lock_open', title: '로그인', to: '/login' }
       ],
       itemsRight: [
         { icon: 'apps', title: '임시', to: '/' },
@@ -132,4 +144,24 @@ export default {
 .v-navigation-drawer
 .v-overlay
   z-index 8000
+.v-footer p
+  margin-bottom: 0
+.target
+  width: 60%
+  overflow hidden
+.target span
+  display block
+  white-space nowrap
+  width:100%;
+  animation: flowing 21s linear infinite;
+  will-change: transform;
+  transform: translateX(100%);
+@keyframes flowing {
+  100% {
+    transform: translateX(-80%);
+  }
+}
+
+
+
 </style>

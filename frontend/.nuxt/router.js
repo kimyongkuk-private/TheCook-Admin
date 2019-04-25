@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _26676bdf = () => interopDefault(import('..\\pages\\feeds.vue' /* webpackChunkName: "pages_feeds" */))
 const _20dc02b3 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
-const _1cd9ae8e = () => interopDefault(import('..\\pages\\product.vue' /* webpackChunkName: "pages_product" */))
+const _0899231d = () => interopDefault(import('..\\pages\\scaduler.vue' /* webpackChunkName: "pages_scaduler" */))
 const _57345f9c = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
@@ -81,13 +82,17 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/feeds",
+      component: _26676bdf,
+      name: "feeds"
+    }, {
       path: "/login",
       component: _20dc02b3,
       name: "login"
     }, {
-      path: "/product",
-      component: _1cd9ae8e,
-      name: "product"
+      path: "/scaduler",
+      component: _0899231d,
+      name: "scaduler"
     }, {
       path: "/",
       component: _57345f9c,

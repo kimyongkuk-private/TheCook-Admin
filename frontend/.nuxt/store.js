@@ -20,24 +20,31 @@ void (function updateModules() {
   store.modules = store.modules || {}
 
   resolveStoreModules(require('@/store/type.js'), 'type.js')
-  resolveStoreModules(require('@/store/scaduler/mutations.js'), 'scaduler/mutations.js')
-  resolveStoreModules(require('@/store/scaduler/action-types.js'), 'scaduler/action-types.js')
-  resolveStoreModules(require('@/store/scaduler/actions.js'), 'scaduler/actions.js')
-  resolveStoreModules(require('@/store/scaduler/getter-types.js'), 'scaduler/getter-types.js')
-  resolveStoreModules(require('@/store/scaduler/getters.js'), 'scaduler/getters.js')
-  resolveStoreModules(require('@/store/scaduler/mutation-types.js'), 'scaduler/mutation-types.js')
-  resolveStoreModules(require('@/store/scaduler/state.js'), 'scaduler/state.js')
+  resolveStoreModules(require('@/store/main/actions.js'), 'main/actions.js')
+  resolveStoreModules(require('@/store/main/mutation-types.js'), 'main/mutation-types.js')
+  resolveStoreModules(require('@/store/main/mutations.js'), 'main/mutations.js')
+  resolveStoreModules(require('@/store/main/getters.js'), 'main/getters.js')
+  resolveStoreModules(require('@/store/main/action-types.js'), 'main/action-types.js')
+  resolveStoreModules(require('@/store/main/getter-types.js'), 'main/getter-types.js')
+  resolveStoreModules(require('@/store/main/state.js'), 'main/state.js')
   resolveStoreModules(require('@/store/modules/autho-logic/index.js'), 'modules/autho-logic/index.js')
-  resolveStoreModules(require('@/store/modules/autho-logic/actions.js'), 'modules/autho-logic/actions.js')
+  resolveStoreModules(require('@/store/main/scaduler/mutation-types.js'), 'main/scaduler/mutation-types.js')
   resolveStoreModules(require('@/store/modules/autho-logic/mutations.js'), 'modules/autho-logic/mutations.js')
-  resolveStoreModules(require('@/store/scaduler/posts/actions.js'), 'scaduler/posts/actions.js')
-  resolveStoreModules(require('@/store/scaduler/posts/getter-types.js'), 'scaduler/posts/getter-types.js')
-  resolveStoreModules(require('@/store/scaduler/posts/getters.js'), 'scaduler/posts/getters.js')
-  resolveStoreModules(require('@/store/scaduler/posts/mutation-types.js'), 'scaduler/posts/mutation-types.js')
-  resolveStoreModules(require('@/store/scaduler/posts/mutations.js'), 'scaduler/posts/mutations.js')
-  resolveStoreModules(require('@/store/scaduler/posts/state.js'), 'scaduler/posts/state.js')
+  resolveStoreModules(require('@/store/main/scaduler/action-types.js'), 'main/scaduler/action-types.js')
+  resolveStoreModules(require('@/store/main/scaduler/actions.js'), 'main/scaduler/actions.js')
+  resolveStoreModules(require('@/store/main/scaduler/state.js'), 'main/scaduler/state.js')
+  resolveStoreModules(require('@/store/main/scaduler/getter-types.js'), 'main/scaduler/getter-types.js')
+  resolveStoreModules(require('@/store/modules/autho-logic/actions.js'), 'modules/autho-logic/actions.js')
   resolveStoreModules(require('@/store/modules/autho-logic/getters.js'), 'modules/autho-logic/getters.js')
-  resolveStoreModules(require('@/store/scaduler/posts/action-types.js'), 'scaduler/posts/action-types.js')
+  resolveStoreModules(require('@/store/main/scaduler/getters.js'), 'main/scaduler/getters.js')
+  resolveStoreModules(require('@/store/main/scaduler/mutations.js'), 'main/scaduler/mutations.js')
+  resolveStoreModules(require('@/store/main/scaduler/posts/action-types.js'), 'main/scaduler/posts/action-types.js')
+  resolveStoreModules(require('@/store/main/scaduler/posts/getter-types.js'), 'main/scaduler/posts/getter-types.js')
+  resolveStoreModules(require('@/store/main/scaduler/posts/getters.js'), 'main/scaduler/posts/getters.js')
+  resolveStoreModules(require('@/store/main/scaduler/posts/mutation-types.js'), 'main/scaduler/posts/mutation-types.js')
+  resolveStoreModules(require('@/store/main/scaduler/posts/mutations.js'), 'main/scaduler/posts/mutations.js')
+  resolveStoreModules(require('@/store/main/scaduler/posts/state.js'), 'main/scaduler/posts/state.js')
+  resolveStoreModules(require('@/store/main/scaduler/posts/actions.js'), 'main/scaduler/posts/actions.js')
 
   // If the environment supports hot reloading...
 
@@ -46,24 +53,31 @@ void (function updateModules() {
     module.hot.accept([
       '@/store/index.js',
       '@/store/type.js',
-      '@/store/scaduler/mutations.js',
-      '@/store/scaduler/action-types.js',
-      '@/store/scaduler/actions.js',
-      '@/store/scaduler/getter-types.js',
-      '@/store/scaduler/getters.js',
-      '@/store/scaduler/mutation-types.js',
-      '@/store/scaduler/state.js',
+      '@/store/main/actions.js',
+      '@/store/main/mutation-types.js',
+      '@/store/main/mutations.js',
+      '@/store/main/getters.js',
+      '@/store/main/action-types.js',
+      '@/store/main/getter-types.js',
+      '@/store/main/state.js',
       '@/store/modules/autho-logic/index.js',
-      '@/store/modules/autho-logic/actions.js',
+      '@/store/main/scaduler/mutation-types.js',
       '@/store/modules/autho-logic/mutations.js',
-      '@/store/scaduler/posts/actions.js',
-      '@/store/scaduler/posts/getter-types.js',
-      '@/store/scaduler/posts/getters.js',
-      '@/store/scaduler/posts/mutation-types.js',
-      '@/store/scaduler/posts/mutations.js',
-      '@/store/scaduler/posts/state.js',
+      '@/store/main/scaduler/action-types.js',
+      '@/store/main/scaduler/actions.js',
+      '@/store/main/scaduler/state.js',
+      '@/store/main/scaduler/getter-types.js',
+      '@/store/modules/autho-logic/actions.js',
       '@/store/modules/autho-logic/getters.js',
-      '@/store/scaduler/posts/action-types.js',
+      '@/store/main/scaduler/getters.js',
+      '@/store/main/scaduler/mutations.js',
+      '@/store/main/scaduler/posts/action-types.js',
+      '@/store/main/scaduler/posts/getter-types.js',
+      '@/store/main/scaduler/posts/getters.js',
+      '@/store/main/scaduler/posts/mutation-types.js',
+      '@/store/main/scaduler/posts/mutations.js',
+      '@/store/main/scaduler/posts/state.js',
+      '@/store/main/scaduler/posts/actions.js',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()

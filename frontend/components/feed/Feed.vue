@@ -78,11 +78,12 @@
 
 
 <script>
-import { getFeeds } from '@/api'
+import { getFeeds } from '@/api/helpers'
 import IsMobile from '@/mixin/isMobile'
 
 export default {
   props: ['titleData'],
+  mixins: [IsMobile],
   data: vm => ({
     menu1: false,
     date: new Date().toISOString().substr(0, 10),
@@ -128,7 +129,6 @@ export default {
       '보통': 'green'
     }
   }),
-  mixins: [IsMobile],
   methods: {
     toggleAll () {
       if (this.selected.length) this.selected = []

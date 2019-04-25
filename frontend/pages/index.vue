@@ -1,33 +1,31 @@
 <template>
-   <div>
-    <Scaduler class="scaduler"/>
-    <Feed class="feed" :title-data="feed.titleData" :header-data="feed.headerData"/>
-  </div>
+  <v-layout row wrap>
+    <Carousel/>
+  </v-layout>
 </template>
 
 <script>
-import Scaduler from '@/components/scaduler/Scaduler'
-import Feed from '@/components/feed/Feed'
-import NewFeed from '@/components/feed/NewFeed'
-
+import Carousel from '@/components/carousel'
 export default {
+  head () {
+    return {
+      htmlAttrs: {
+      },
+      title: 'main',
+      meta: [
+        { hid: 'description', name: 'description', content: 'thecook-admin 페이지' }
+      ]
+    }
+  },
   layout: 'default',
   // middleware: 'auth',
   components: {
-    Scaduler,
-    Feed,
-    NewFeed
+    Carousel
   },
-  data: () => ({
-    feed: {
-      titleData: '공지',
-      headerData: [
-        { text: '작성자', value: 'manager' },
-        { text: 'STAFF', value: 'staff' },
-        { text: 'STATUS', value: 'status' },
-        { text: '내용', value: 'memo' }
-      ]
+  data () {
+    return {
     }
-  })
+  }
 }
 </script>
+<style lang="sass" scoped src="./assets/index.sass"></style>

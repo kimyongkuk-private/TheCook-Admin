@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import API from '@/api'
+import API from '@/api/helpers'
 
 export default {
   props: ['titleData', 'headerData'],

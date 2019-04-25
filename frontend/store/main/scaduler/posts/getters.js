@@ -5,6 +5,6 @@ export default {
     return state.scadule
   }, // getters['scaduler/posts/get_scadule']
   [DETAIL] (state, getters, rootState, rootGetters) {
-    return state.scadule[rootGetters['scaduler/get_post_idx']]
+    return state.scadule[rootGetters['main/scaduler/get_post_idx']]
   } // getters[scaduler/posts/get_detail']
 }
