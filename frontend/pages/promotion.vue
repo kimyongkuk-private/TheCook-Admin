@@ -1,23 +1,26 @@
 <template>
   <v-layout row wrap>
+    <Carousel/>
   </v-layout>
 </template>
 
 <script>
+import Carousel from '@/components/carousel'
 export default {
   head () {
     return {
       htmlAttrs: {
       },
-      title: 'main',
+      title: 'thecook-customer | Promotion',
       meta: [
-        { hid: 'description', name: 'description', content: 'thecook-admin 페이지' }
+        { hid: 'description', name: 'description', content: 'thecook-customer | Promotion' }
       ]
     }
   },
   layout: 'default',
   // middleware: 'auth',
   components: {
+    Carousel
   },
   data () {
     return {
@@ -25,4 +28,4 @@ export default {
   }
 }
 </script>
-<style lang="sass" scoped src="./assets/index.sass"></style>
+<style lang="sass" scoped src="./assets/promotion.sass"></style>

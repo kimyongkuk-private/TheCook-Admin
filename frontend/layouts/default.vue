@@ -7,11 +7,11 @@
       fixed
       app
     >
-    <v-container class="text-xs-center">
-      Thecook
-       <v-img src="http://xn--9m1bl55c.kr/theme/company/img/bg.jpg" aspect-ratio="1.7"></v-img>
-      주방설비 1번지 (주) 더쿡
-    </v-container>
+      <v-container v-if="!miniVariant" class="text-xs-center">
+        Thecook
+        <v-img src="http://xn--9m1bl55c.kr/theme/company/img/bg.jpg" aspect-ratio="1.7"></v-img>
+        <p> 주방설비 1번지 (주) 더쿡</p>
+      </v-container>
       <v-list>
         <v-list-tile
           router
@@ -28,7 +28,7 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-        <v-footer fixed class="pa-3 justify-center">
+        <v-footer  v-if="!miniVariant"  fixed class="pa-3 justify-center">
           <span class="pa-1">한국어</span>|<span  class="pa-1">汉浯</span>  
         </v-footer>
     </v-navigation-drawer>
@@ -58,6 +58,13 @@
       <AlertBadge/>
       <v-btn
         icon
+        router
+        to="/login"
+      >
+        <v-icon>lock_open</v-icon>
+      </v-btn>
+      <v-btn
+        icon
         @click.stop="rightDrawer = !rightDrawer"
       >
         <v-icon>menu</v-icon>
@@ -75,7 +82,12 @@
       v-model="rightDrawer"
       fixed
     >
-
+    <v-container class="text-xs-center">
+      Thecook
+       <v-img src="http://xn--9m1bl55c.kr/theme/company/img/bg.jpg" aspect-ratio="1.7"></v-img>
+      주방설비 1번지 (주) 더쿡
+            <p> 사원용 메뉴입니다. </p>
+    </v-container>
       <v-list>
         
         <v-list-tile
@@ -115,25 +127,22 @@ export default {
   },
   data () {
     return {
-      clipped: false,
+      clipped: true,
       drawer: true,
       fixed: false,
       items: [
         { icon: 'home', title: '홈', to: '/' },
-        { icon: 'rss_feed', title: '피드', to: '/feeds' },
-        { icon: 'calendar_today', title: '스케줄', to: '/scaduler' },
-        { icon: 'lock_open', title: '로그인', to: '/login' }
+        { icon: 'bubble_chart', title: '제품', to: '/production' },
+        { icon: 'apps', title: '프로모션', to: '/promotion' }
       ],
       itemsRight: [
-        { icon: 'apps', title: '임시', to: '/' },
-        { icon: 'bubble_chart', title: '임시', to: '/' },
-        { icon: 'bubble_chart', title: '임시', to: '/' },
-        { icon: 'bubble_chart', title: '임시', to: '/' }
+        { icon: 'rss_feed', title: '피드', to: '/employee/feeds' },
+        { icon: 'calendar_today', title: '스케줄', to: '/employee/scaduler' }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Admin'
+      title: '(주)더쿡'
     }
   },
   mixins: [IsMobile]

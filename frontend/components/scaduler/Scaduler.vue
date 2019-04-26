@@ -1,7 +1,7 @@
 
 <template>
   <v-layout justify-space-between wrap v-resize="checkMobile" >
-    <v-flex xs12 sm8 md8 class="my-4 px-1">
+    <v-flex xs12 sm8 md8 class="my-4 px-3">
     <v-flex xs12 class="my-1 px-1">
         <v-menu
           v-model="picker_status"
@@ -39,18 +39,20 @@
     </v-flex>
      <no-ssr>
     <v-flex xs12 class="my-2 px-1">
-      <v-subheader >{{ datail.title + ' ' + datail.time}}</v-subheader>
-      <ul class="ma-3">
-        <li>일정 상세내용<br/>{{ datail.content }}</li>
-        <li>주소<br/><a :href="'https://www.google.co.kr/maps/search/'+datail.address ">{{ datail.address }}</a></li>
-        <li>전화<br/><a :href="'tel:'+datail.tel ">{{ datail.tel }}</a></li>
-        <li>대금<br/>{{ datail.cost }} 원</li>
-      </ul>
+      <v-container>
+        <v-subheader >{{ datail.title + ' ' + datail.time}}</v-subheader>
+        <ul class="ma-3">
+          <li>일정 상세<br/>{{ datail.content }}</li>
+          <li>주소<br/><a :href="'https://www.google.co.kr/maps/search/'+datail.address ">{{ datail.address }}</a></li>
+          <li>전화<br/><a :href="'tel:'+datail.tel ">{{ datail.tel }}</a></li>
+          <li>대금<br/>{{ datail.cost }} 원</li>
+        </ul>
+      </v-container>
     </v-flex>
      </no-ssr>
 </v-flex>
     <v-flex xs12 sm4 md4 class="my-2 px-1 scheduler_wrap">
-      <div class="scheduler">
+      <v-container class="scheduler">
        <div class="scaduleTitle">{{ date || '날짜를 선택해주세요' }}</div>
         <no-ssr>
         <v-list  two-line>
@@ -70,7 +72,7 @@
             </v-list-tile>
         </v-list>
         </no-ssr>
-        </div>
+      </v-container>
     <Modal v-bind:date="date"/>
 
     </v-flex>
@@ -132,8 +134,7 @@
 .scheduler_wrap
   position relative
   .scheduler
-    position relative
-    height calc(100vh - 100px)
+    height calc(100vh - 120px)
     overflow-y scroll
     -ms-overflow-style none
     box-shadow default

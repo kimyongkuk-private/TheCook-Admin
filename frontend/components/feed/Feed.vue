@@ -1,7 +1,8 @@
 <template>
   <v-layout v-resize="checkMobile" column style="padding-top:56px">
-    <v-toolbar card dense color="transparent"  flat>
 
+    <v-toolbar card dense color="transparent"  flat>
+      
       <v-flex xs8>
         <v-layout>
           <v-flex xs4 v-if="!isMobile">
@@ -14,6 +15,7 @@
             append-icon="search"
             label="검색"
             single-line
+            class="notranslate"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -32,6 +34,8 @@
           max-width="290px"
           min-width="290px"
         >
+    
+
           <template v-slot:activator="{ on }">
             <v-text-field
               v-model="dateFormatted"
@@ -45,16 +49,136 @@
         </v-menu>
       </v-flex>   
     </v-toolbar>
-            <v-data-table item-key="id" :headers="headers" :items="feeds" :search="search" :pagination.sync="pagination" :hide-headers="isMobile" :class="{mobile: isMobile}" :expand="expand">
+      <v-container fluid grid-list-md>
+        <v-card>
+          <v-card-title>
+                <v-textarea
+                  name="input-7-1"
+                  box
+                  label="새글"
+                  value=""
+                ></v-textarea>
+          </v-card-title>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+             >확인
+             </v-btn>
+          </v-card-actions>
+        </v-card>
+
+  </v-container>
+        <v-container fluid grid-list-md>
+            <v-data-table item-key="id" :headers="headers" :items="feeds" :search="search" :pagination.sync="pagination" :hide-headers="true" :class="{mobile: isMobile}" :expand="expand">
               <template slot="items" slot-scope="props">
                 <tr v-if="!isMobile"  @click="props.expanded = !props.expanded"
                 :style="getColorByStatus(props.item.status)">
-                  <td>{{ props.item.manager }}</td>
+                            <v-card
+                              class="mx-auto"
+                              color="#424242"
+                              dark
+                            >
+                              <v-card-title>
+                                <v-icon
+                                  small
+                                  left
+                                  :style="getColorByStatus(props.item.status)"
+                                  class="notranslate"
+                                >
+                                  label_important
+                                </v-icon>
+                                <span class="subheading font-weight-light"> {{ props.item.status }}</span>
+                              </v-card-title>
+
+                              <v-card-text class="title font-weight-light text-xs-left">
+                                {{ props.item.title }}
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-list-tile class="grow">
+                                  <v-list-tile-avatar color="grey darken-3">
+                                    <v-img
+                                      class="elevation-6"
+                                      src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                                    ></v-img>
+                                  </v-list-tile-avatar>
+
+                                  <v-list-tile-content>
+                                    <v-list-tile-title>{{ props.item.manager }}</v-list-tile-title>
+                                  </v-list-tile-content>
+
+                                  <v-layout
+                                    align-center
+                                    justify-end
+                                  >
+  
+                                    <span class="body-2 mr-2">1시간전</span>
+                                         <span class="mr-1">·</span>
+                                    <span class="body-2 mr-2"></span>
+                                  </v-layout>
+                                </v-list-tile>
+                              </v-card-actions>
+                            </v-card>
+                  <!-- <td>{{ props.item.manager }}</td>
                   <td class="text-xs-right" ><span class="px-1" :key="staff" v-for="staff in props.item.staff">{{staff}}</span></td>
                   <td class="text-xs-right">{{ props.item.status }}</td>
-                  <td class="text-xs-right">{{ props.item.title }}</td>
+                  <td class="text-xs-right">{{ props.item.title }}</td> -->
                 </tr>
+
+
                 <tr v-else  @click="props.expanded = !props.expanded"
+                 >
+                            <v-card
+                              class="mx-auto"
+                              color="#424242"
+                              dark
+                              max-width="400"
+                            >
+                              <v-card-title>
+                                <v-icon
+                                  small
+                                  left
+                                  :style="getColorByStatus(props.item.status)"
+                                  class="notranslate"
+                                  
+                                >
+                                  label_important
+                                </v-icon>
+                                <span class="subheading font-weight-light"> {{ props.item.status }}</span>
+                              </v-card-title>
+
+                              <v-card-text class="headline font-weight-light">
+                                {{ props.item.title }}
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-list-tile class="grow">
+                                  <v-list-tile-avatar color="grey darken-3">
+                                    <v-img
+                                      class="elevation-6"
+                                      src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+                                    ></v-img>
+                                  </v-list-tile-avatar>
+
+                                  <v-list-tile-content>
+                                    <v-list-tile-title>{{ props.item.manager }}</v-list-tile-title>
+                                  </v-list-tile-content>
+
+                                  <v-layout
+                                    align-center
+                                    justify-end
+                                  >
+  
+                                    <span class="body-2 mr-2">1시간전</span>
+                                         <span class="mr-1">·</span>
+                                    <span class="body-2 mr-2"></span>
+                                  </v-layout>
+                                </v-list-tile>
+                              </v-card-actions>
+                            </v-card>
+                </tr>
+                <!-- <tr v-else  @click="props.expanded = !props.expanded"
                  :style="getColorByStatus(props.item.status)">
                   <td>
                     <ul class="flex-content" >
@@ -64,16 +188,22 @@
                       <li class="flex-item" data-label="Title">{{ props.item.title }}</li>
                     </ul>
                   </td>
-                </tr>
+                </tr> -->
               </template>
               <template v-slot:expand="props">
-                <div>{{ props.item.memo }}</div>
+      
+                <v-card-title primary-title class="body-2">
+                    <div> {{ props.item.memo }} </div>
+                </v-card-title>
+
               </template>
               <v-alert slot="no-results" :value="true" color="error" icon="warning">
                 "{{ search }}"를 포함한 결과를 찾을 수 없습니다 
               </v-alert>
             </v-data-table>
+                   </v-container>
           </v-layout>
+     
 </template>
 
 
@@ -156,7 +286,7 @@ export default {
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
     getColorByStatus (status) {
-      return { borderLeft: `6px solid ${this.colors[status]}` }
+      return { color: `${this.colors[status]}` }
     }
   },
   created () {
@@ -222,4 +352,8 @@ export default {
     padding 0 10px
     text-align justify
     border-bottom 2px solid black
+
+.v-card__text
+  word-break keep-all
+  word-wrap break-word
 </style>

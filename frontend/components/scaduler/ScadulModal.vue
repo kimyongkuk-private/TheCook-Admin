@@ -6,7 +6,7 @@
           class="scaduler_fab"
           fab
           small
-          color="cyan accent-2"
+          color="orange accent-2"
           bottom
           right
           absolute
@@ -115,7 +115,7 @@
 
 <style lang="stylus" scope="this api replaced by slot-scope in 2.5.0+">
 .scaduler_fab.v-btn--floating.v-btn--absolute
-  z-index 1
+  bottom 18px
 .v-text-field__slot input[type='number'] 
   -moz-appearance:textfield
 .v-text-field__slot input::-webkit-outer-spin-button,
