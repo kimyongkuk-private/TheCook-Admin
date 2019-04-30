@@ -106,8 +106,8 @@ const setupProgress = (axios, ctx) => {
 export default (ctx, inject) => {
   // baseURL
   const baseURL = process.browser
-      ? 'http://localhost:9102'
-      : (process.env._AXIOS_BASE_URL_ || 'http://localhost:9102')
+      ? 'http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/'
+      : (process.env._AXIOS_BASE_URL_ || 'http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/')
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!
@@ -128,13 +128,6 @@ export default (ctx, inject) => {
     baseURL,
     headers
   }
-
-  // Proxy SSR request headers headers
-  axiosOptions.headers.common = (ctx.req && ctx.req.headers) ? Object.assign({}, ctx.req.headers) : {}
-  delete axiosOptions.headers.common['accept']
-  delete axiosOptions.headers.common['host']
-  delete axiosOptions.headers.common['cf-ray']
-  delete axiosOptions.headers.common['cf-connecting-ip']
 
   if (process.server) {
     // Don't accept brotli encoding because Node can't parse it

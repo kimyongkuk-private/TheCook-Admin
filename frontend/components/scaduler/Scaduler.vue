@@ -40,13 +40,46 @@
      <no-ssr>
     <v-flex xs12 class="my-2 px-1">
       <v-container>
-        <v-subheader >{{ datail.title + ' ' + datail.time}}</v-subheader>
-        <ul class="ma-3">
-          <li>일정 상세<br/>{{ datail.content }}</li>
-          <li>주소<br/><a :href="'https://www.google.co.kr/maps/search/'+datail.address ">{{ datail.address }}</a></li>
-          <li>전화<br/><a :href="'tel:'+datail.tel ">{{ datail.tel }}</a></li>
-          <li>대금<br/>{{ datail.cost }} 원</li>
-        </ul>
+        <v-card>
+        <v-card-title>
+          <v-list two-line subheader>
+          <v-subheader><h3 class="headline mb-0">{{ datail.title + ' ' + datail.time}}</h3></v-subheader>
+
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title>일정 상세</v-list-tile-title>
+              <v-list-tile-sub-title>{{ datail.content }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title>주소</v-list-tile-title>
+              <v-list-tile-sub-title><a :href="'https://www.google.co.kr/maps/search/'+datail.address ">{{ datail.address }}</a></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title>주소</v-list-tile-title>
+              <v-list-tile-sub-title><a :href="'tel:'+datail.tel ">{{ datail.tel }}</a></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title>대금</v-list-tile-title>
+              <v-list-tile-sub-title>{{ datail.cost }} 원</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+    
+        </v-list>
+        <iframe width="560" height="315" :src="'https://www.google.co.kr/maps/search/'+datail.address " frameborder="0" />
+        </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn>완료</v-btn>
+        </v-card-actions>
+        </v-card>
       </v-container>
     </v-flex>
      </no-ssr>

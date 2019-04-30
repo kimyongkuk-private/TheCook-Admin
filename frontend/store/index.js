@@ -18,7 +18,9 @@ export const mutations = {
 }
 
 export const actions = {
-  signIn: () => {},
+  signIn: async (payload) => {
+    // dispatch('scaduler/posts/getScadule')
+  },
   signOut: () => {},
   refreshToken: () => {},
   populateErrors: ({ commit }, error) => {

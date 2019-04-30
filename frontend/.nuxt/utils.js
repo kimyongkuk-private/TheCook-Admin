@@ -138,7 +138,7 @@ export async function setContext(app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {"baseURL":"http://localhost:9102"}
+      env: {"baseURL":"http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/"}
     }
     // Only set once
     if (context.req) {

@@ -1,6 +1,6 @@
 var environment = {
-  API_URL: 'http://localhost:9102',
-  API_URL_BROWSER: 'http://localhost:9102',
+  API_URL: 'http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/',
+  API_URL_BROWSER: 'http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/',
   PROXY: false,
   DEBUG: true,
   RETRIES: 2
@@ -10,21 +10,26 @@ module.exports = {
   /*
   ** Headers of the page
   */
-  router: {
-    middleware: 'auth'
-  },
+  // router: {
+  //   middleware: 'auth'
+  // },
   env: {
-    baseURL: process.env.BASE_URL || 'http://localhost:9102'
+    baseURL: process.env.BASE_URL || 'http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/'
   },
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
+  auth: {
+    // Options
+  },
   axios: {
-    // proxyHeaders: false
     baseURL: environment.API_URL,
-    browserBaseURL: environment.API_URL_BROWSER,
-    proxy: environment.PROXY
+    // browserBaseURL: environment.API_URL_BROWSER,
+    // proxy: environment.PROXY,
+    proxyHeaders: false,
+    credentials: false
     // debug: environment.DEBUG,
     // retry: {
     //   retries: environment.RETRIES

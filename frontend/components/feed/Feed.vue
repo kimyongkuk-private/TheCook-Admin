@@ -73,13 +73,16 @@
             <v-data-table item-key="id" :headers="headers" :items="feeds" :search="search" :pagination.sync="pagination" :hide-headers="true" :class="{mobile: isMobile}" :expand="expand">
               <template slot="items" slot-scope="props">
                 <tr v-if="!isMobile"  @click="props.expanded = !props.expanded"
-                :style="getColorByStatus(props.item.status)">
+                :style="getColorByStatus(props.item.status)"
+                >
+                 <v-hover>
                             <v-card
-                              class="mx-auto"
+                              slot-scope="{ hover }"
+                              :class="`my-1 elevation-${hover ? 0 : 24}` "
                               color="#424242"
                               dark
                             >
-                              <v-card-title>
+                              <v-card-title > 
                                 <v-icon
                                   small
                                   left
@@ -120,6 +123,7 @@
                                 </v-list-tile>
                               </v-card-actions>
                             </v-card>
+                             </v-hover>
                   <!-- <td>{{ props.item.manager }}</td>
                   <td class="text-xs-right" ><span class="px-1" :key="staff" v-for="staff in props.item.staff">{{staff}}</span></td>
                   <td class="text-xs-right">{{ props.item.status }}</td>
