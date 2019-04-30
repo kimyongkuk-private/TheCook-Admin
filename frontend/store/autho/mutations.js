@@ -1,8 +1,13 @@
+import {
+  USER,
+  LOGOUT
+} from './mutation-types'
+
 export default {
-  User (state, payload) {
+  [USER] (state, payload) {
     SET_USER(payload)
   },
-  Logout (state, payload) {
+  [LOGOUT] (state, payload) {
     SET_LOGOUT(payload)
   }
 }
@@ -22,5 +27,4 @@ function SET_USER (state, payload) {
  */
 function SET_LOGOUT (state) {
   state.user = null
-  state.token = null
 }

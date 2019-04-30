@@ -21,6 +21,9 @@ void (function updateModules() {
 
   resolveStoreModules(require('@/store/type.js'), 'type.js')
   resolveStoreModules(require('@/store/autho/index.js'), 'autho/index.js')
+  resolveStoreModules(require('@/store/autho/getters.js'), 'autho/getters.js')
+  resolveStoreModules(require('@/store/autho/action-types.js'), 'autho/action-types.js')
+  resolveStoreModules(require('@/store/autho/mutation-types.js'), 'autho/mutation-types.js')
   resolveStoreModules(require('@/store/autho/mutations.js'), 'autho/mutations.js')
   resolveStoreModules(require('@/store/autho/actions.js'), 'autho/actions.js')
   resolveStoreModules(require('@/store/main/action-types.js'), 'main/action-types.js')
@@ -30,9 +33,9 @@ void (function updateModules() {
   resolveStoreModules(require('@/store/main/mutation-types.js'), 'main/mutation-types.js')
   resolveStoreModules(require('@/store/main/mutations.js'), 'main/mutations.js')
   resolveStoreModules(require('@/store/main/state.js'), 'main/state.js')
-  resolveStoreModules(require('@/store/autho/getters.js'), 'autho/getters.js')
-  resolveStoreModules(require('@/store/main/scaduler/actions.js'), 'main/scaduler/actions.js')
+  resolveStoreModules(require('@/store/autho/action-urls.js'), 'autho/action-urls.js')
   resolveStoreModules(require('@/store/main/scaduler/getter-types.js'), 'main/scaduler/getter-types.js')
+  resolveStoreModules(require('@/store/main/scaduler/actions.js'), 'main/scaduler/actions.js')
   resolveStoreModules(require('@/store/main/scaduler/mutation-types.js'), 'main/scaduler/mutation-types.js')
   resolveStoreModules(require('@/store/main/scaduler/mutations.js'), 'main/scaduler/mutations.js')
   resolveStoreModules(require('@/store/main/scaduler/action-types.js'), 'main/scaduler/action-types.js')
@@ -54,6 +57,9 @@ void (function updateModules() {
       '@/store/type.js',
       '@/store/index.js',
       '@/store/autho/index.js',
+      '@/store/autho/getters.js',
+      '@/store/autho/action-types.js',
+      '@/store/autho/mutation-types.js',
       '@/store/autho/mutations.js',
       '@/store/autho/actions.js',
       '@/store/main/action-types.js',
@@ -63,9 +69,9 @@ void (function updateModules() {
       '@/store/main/mutation-types.js',
       '@/store/main/mutations.js',
       '@/store/main/state.js',
-      '@/store/autho/getters.js',
-      '@/store/main/scaduler/actions.js',
+      '@/store/autho/action-urls.js',
       '@/store/main/scaduler/getter-types.js',
+      '@/store/main/scaduler/actions.js',
       '@/store/main/scaduler/mutation-types.js',
       '@/store/main/scaduler/mutations.js',
       '@/store/main/scaduler/action-types.js',
