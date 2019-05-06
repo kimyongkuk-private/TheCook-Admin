@@ -1,16 +1,18 @@
 <template>
   <v-app dark v-resize="checkMobile">
     <v-navigation-drawer
-      :mini-variant.sync="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
+      :mini-variant.sync="toolbarData.miniVariant"
+      :clipped="toolbarData.clipped"
+      v-model="toolbarData.drawer"
       fixed
       app
     >
-      <v-container v-if="!miniVariant" class="text-xs-center">
+      <v-container v-if="!toolbarData.miniVariant" class="text-xs-center">
         Thecook
         <v-img src="http://xn--9m1bl55c.kr/theme/company/img/bg.jpg" aspect-ratio="1.7"></v-img>
         <p> 주방설비 1번지 (주) 더쿡</p>
+        <p> 로그인과 상관 없이 나타나는 접근레벨 0의 페이지 메뉴입니다</p>
+        <p> 한ㆍ중 번역버튼 예정</p>
       </v-container>
       <v-list>
         <v-list-tile
@@ -28,23 +30,26 @@
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
-        <v-footer  v-if="!miniVariant"  fixed class="pa-3 justify-center">
+        <v-footer
+          inset
+          fixed
+          class="pa-3 justify-center">
           <span class="pa-1">한국어</span>|<span  class="pa-1">汉浯</span>  
         </v-footer>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped" class="nav">
-      <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
+    <v-toolbar fixed app :clipped-left="toolbarData.clipped" class="nav">
+      <v-toolbar-side-icon @click="toolbarData.drawer = !toolbarData.drawer"></v-toolbar-side-icon>
       <v-btn
         v-if="!isMobile"
         icon
-        @click.stop="miniVariant = !miniVariant"
+        @click.stop="toolbarData.miniVariant = !toolbarData.miniVariant"
       >
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
+        <v-icon v-html="toolbarData.miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
       <v-btn
         v-if="!isMobile"
         icon
-        @click.stop="clipped = !clipped"
+        @click.stop="toolbarData.clipped = !toolbarData.clipped"
       >
         <v-icon>web</v-icon>
       </v-btn>
@@ -53,7 +58,7 @@
         @click.stop="fixed = !fixed"
       >
       </v-btn> -->
-      <v-toolbar-title  v-text="title"></v-toolbar-title>
+      <v-toolbar-title  v-text="toolbarData.title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <AlertBadge/>
       <v-btn
@@ -65,21 +70,23 @@
       </v-btn>
       <v-btn
         icon
-        @click.stop="rightDrawer = !rightDrawer"
+        @click.stop="toolbarData.rightDrawer = !toolbarData.rightDrawer"
+        v-if="this.$store.state.userState.userSign"
       >
         <v-icon>menu</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-content>
+    <v-content fill-height>
 
         <nuxt />
 
     </v-content>
     
     <v-navigation-drawer
+      v-if="this.$store.state.userState.userSign"
       temporary
-      :right="right"
-      v-model="rightDrawer"
+      :right="toolbarData.right"
+      v-model="toolbarData.rightDrawer"
       fixed
     >
     <v-container class="text-xs-center">
@@ -87,6 +94,7 @@
        <v-img src="http://xn--9m1bl55c.kr/theme/company/img/bg.jpg" aspect-ratio="1.7"></v-img>
       주방설비 1번지 (주) 더쿡
             <p> 사원용 메뉴입니다. </p>
+            <p> (개발) 로그인 되어있지 않으면 나타나지 않습니다.</p>
     </v-container>
       <v-list>
         
@@ -107,42 +115,40 @@
 
       </v-list>
     </v-navigation-drawer>
-    <v-footer  app>
-      <p class="ma-2">&copy; The Cook {{ new Date().getFullYear() }}</p>
-      <v-spacer></v-spacer>
-      <p class="target"> <span>더쿡을 찾아주신 고객님을 환영합니다</span> </p>
-      <v-spacer></v-spacer>
-      <p class="text-lg-right ma-2">로그인 중입니다</p>
-    </v-footer>
+<Footer></Footer>
   </v-app>
 </template>
 
 <script>
 import IsMobile from '@/mixin/isMobile'
 import AlertBadge from '@/components/badge/AlertBadge'
+import Footer from '@/components/core/footer'
 
 export default {
   components: {
-    AlertBadge
+    AlertBadge,
+    Footer
   },
   data () {
     return {
-      clipped: true,
-      drawer: true,
-      fixed: false,
+      toolbarData: {
+        title: '더쿡 관리자페이지',
+        miniVariant: false,
+        right: true,
+        rightDrawer: false,
+        clipped: true,
+        drawer: false,
+        fixed: false
+      },
       items: [
         { icon: 'home', title: '홈', to: '/' },
-        { icon: 'bubble_chart', title: '제품', to: '/production' },
-        { icon: 'apps', title: '프로모션', to: '/promotion' }
+        { icon: 'bubble_chart', title: '제품', to: '/open/production' },
+        { icon: 'apps', title: '프로모션', to: '/open/promotion' }
       ],
       itemsRight: [
-        { icon: 'rss_feed', title: '피드', to: '/employee/feeds' },
-        { icon: 'calendar_today', title: '스케줄', to: '/employee/scaduler' }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: '(주)더쿡'
+        { icon: 'rss_feed', title: '피드', to: '/private/feeds' },
+        { icon: 'calendar_today', title: '스케줄', to: '/private/scaduler' }
+      ]
     }
   },
   mixins: [IsMobile]
@@ -153,24 +159,5 @@ export default {
 .v-navigation-drawer
 .v-overlay
   z-index 8000
-.v-footer p
-  margin-bottom: 0
-.target
-  width: 60%
-  overflow hidden
-.target span
-  display block
-  white-space nowrap
-  width:100%;
-  animation: flowing 21s linear infinite;
-  will-change: transform;
-  transform: translateX(100%);
-@keyframes flowing {
-  100% {
-    transform: translateX(-80%);
-  }
-}
-
-
 
 </style>

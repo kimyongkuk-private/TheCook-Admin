@@ -1,6 +1,6 @@
-# thecook-admin
+# intranet
 
-> thecook-admin vue nuxt vuetify project
+> Nuxt.js + Vuetify.js project
 
 ## Build Setup
 
@@ -18,5 +18,5 @@ $ npm start
 # generate static project
 $ npm run generate
 ```
-## vue init vuetifyjs/nuxt TheCook-Admin
-## vue
+
+For detailed explanation on how things work, check out the [Nuxt.js](https://github.com/nuxt/nuxt.js) and [Vuetify.js](https://vuetifyjs.com/) documentation.

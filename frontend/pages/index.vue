@@ -1,28 +1,18 @@
 <template>
-  <v-layout row wrap>
-  </v-layout>
+  <div>
+
+  </div>
 </template>
 
 <script>
+
 export default {
-  head () {
-    return {
-      htmlAttrs: {
-      },
-      title: 'main',
-      meta: [
-        { hid: 'description', name: 'description', content: 'thecook-admin 페이지' }
-      ]
-    }
-  },
   layout: 'default',
-  // middleware: 'auth',
-  components: {
-  },
-  data () {
-    return {
+  middleware: 'notAuthenticated',
+  methods: {
+    logout () {
+      this.$store.commit('set_signout_mutation')
     }
   }
 }
 </script>
-<style lang="sass" scoped src="./assets/index.sass"></style>

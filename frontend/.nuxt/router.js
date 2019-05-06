@@ -3,10 +3,8 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _20dc02b3 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
-const _78b3d0df = () => interopDefault(import('..\\pages\\production.vue' /* webpackChunkName: "pages_production" */))
-const _04cff9ed = () => interopDefault(import('..\\pages\\promotion.vue' /* webpackChunkName: "pages_promotion" */))
-const _566eba71 = () => interopDefault(import('..\\pages\\employee\\feeds.vue' /* webpackChunkName: "pages_employee_feeds" */))
-const _2ae9734b = () => interopDefault(import('..\\pages\\employee\\scaduler.vue' /* webpackChunkName: "pages_employee_scaduler" */))
+const _e9702e50 = () => interopDefault(import('..\\pages\\private\\feeds.vue' /* webpackChunkName: "pages_private_feeds" */))
+const _30885784 = () => interopDefault(import('..\\pages\\private\\scaduler.vue' /* webpackChunkName: "pages_private_scaduler" */))
 const _57345f9c = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
@@ -88,21 +86,13 @@ export function createRouter() {
       component: _20dc02b3,
       name: "login"
     }, {
-      path: "/production",
-      component: _78b3d0df,
-      name: "production"
+      path: "/private/feeds",
+      component: _e9702e50,
+      name: "private-feeds"
     }, {
-      path: "/promotion",
-      component: _04cff9ed,
-      name: "promotion"
-    }, {
-      path: "/employee/feeds",
-      component: _566eba71,
-      name: "employee-feeds"
-    }, {
-      path: "/employee/scaduler",
-      component: _2ae9734b,
-      name: "employee-scaduler"
+      path: "/private/scaduler",
+      component: _30885784,
+      name: "private-scaduler"
     }, {
       path: "/",
       component: _57345f9c,

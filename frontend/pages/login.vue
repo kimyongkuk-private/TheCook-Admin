@@ -1,11 +1,10 @@
 <template>
-  <v-app id="form-login" class="primary">
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4 lg4>
+<v-layout align-center justify-center>
+    <v-flex  xs12 sm8 md4 lg4 text-xs-center>
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
-                  <h1 class="flex my-4 primary--text">{{title}}</h1>
+                  <h1 class="flex my-4 primary--text">{{appInfo.title}}</h1>
                 </div>
                 <v-form>
                   <v-text-field append-icon="phone_iphone" name="login" label="핸드폰번호" type="text"
@@ -22,21 +21,24 @@
                   <v-icon color="red">fa fa-google fa-lg</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn block color="primary" :loading="loading" @click="sign_In(userData)">Welcome</v-btn>
+                <v-btn block color="primary" :loading="appInfo.loading" @click="signInMethod(userData)">Welcome</v-btn>
               </v-card-actions>
             </v-card>
-          </v-flex>
-        </v-layout>
-  </v-app>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+
 export default {
+  middleware: 'notAuthenticated',
   layout: 'login',
   data: () => ({
-    title: '더쿡 관리자페이지',
-    loading: false,
+    appInfo: {
+      title: '더쿡 관리자페이지',
+      loading: false
+    },
     userData: {
       username: '',
       password: ''
@@ -44,10 +46,10 @@ export default {
   }),
   methods: {
     ...mapActions({
-      signIn: 'autho/login_logic'
+      signIn: 'signin_action'
     }),
-    sign_In (userData) {
-      this.signIn(userData)
+    async signInMethod (userData) {
+      await this.signIn(userData).then(response => this.$router.push('/'))
     }
   }
 }

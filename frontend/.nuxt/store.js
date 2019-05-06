@@ -19,71 +19,25 @@ void (function updateModules() {
   // Enforce store modules
   store.modules = store.modules || {}
 
-  resolveStoreModules(require('@/store/type.js'), 'type.js')
-  resolveStoreModules(require('@/store/autho/index.js'), 'autho/index.js')
-  resolveStoreModules(require('@/store/autho/getters.js'), 'autho/getters.js')
-  resolveStoreModules(require('@/store/autho/action-types.js'), 'autho/action-types.js')
-  resolveStoreModules(require('@/store/autho/mutation-types.js'), 'autho/mutation-types.js')
-  resolveStoreModules(require('@/store/autho/mutations.js'), 'autho/mutations.js')
-  resolveStoreModules(require('@/store/autho/actions.js'), 'autho/actions.js')
-  resolveStoreModules(require('@/store/main/action-types.js'), 'main/action-types.js')
-  resolveStoreModules(require('@/store/main/actions.js'), 'main/actions.js')
-  resolveStoreModules(require('@/store/main/getter-types.js'), 'main/getter-types.js')
-  resolveStoreModules(require('@/store/main/getters.js'), 'main/getters.js')
-  resolveStoreModules(require('@/store/main/mutation-types.js'), 'main/mutation-types.js')
-  resolveStoreModules(require('@/store/main/mutations.js'), 'main/mutations.js')
-  resolveStoreModules(require('@/store/main/state.js'), 'main/state.js')
-  resolveStoreModules(require('@/store/autho/action-urls.js'), 'autho/action-urls.js')
-  resolveStoreModules(require('@/store/main/scaduler/getter-types.js'), 'main/scaduler/getter-types.js')
-  resolveStoreModules(require('@/store/main/scaduler/actions.js'), 'main/scaduler/actions.js')
-  resolveStoreModules(require('@/store/main/scaduler/mutation-types.js'), 'main/scaduler/mutation-types.js')
-  resolveStoreModules(require('@/store/main/scaduler/mutations.js'), 'main/scaduler/mutations.js')
-  resolveStoreModules(require('@/store/main/scaduler/action-types.js'), 'main/scaduler/action-types.js')
-  resolveStoreModules(require('@/store/main/scaduler/state.js'), 'main/scaduler/state.js')
-  resolveStoreModules(require('@/store/main/scaduler/getters.js'), 'main/scaduler/getters.js')
-  resolveStoreModules(require('@/store/main/scaduler/posts/getter-types.js'), 'main/scaduler/posts/getter-types.js')
-  resolveStoreModules(require('@/store/main/scaduler/posts/mutation-types.js'), 'main/scaduler/posts/mutation-types.js')
-  resolveStoreModules(require('@/store/main/scaduler/posts/mutations.js'), 'main/scaduler/posts/mutations.js')
-  resolveStoreModules(require('@/store/main/scaduler/posts/state.js'), 'main/scaduler/posts/state.js')
-  resolveStoreModules(require('@/store/main/scaduler/posts/actions.js'), 'main/scaduler/posts/actions.js')
-  resolveStoreModules(require('@/store/main/scaduler/posts/action-types.js'), 'main/scaduler/posts/action-types.js')
-  resolveStoreModules(require('@/store/main/scaduler/posts/getters.js'), 'main/scaduler/posts/getters.js')
+  resolveStoreModules(require('@/store/app/action-types.js'), 'app/action-types.js')
+  resolveStoreModules(require('@/store/app/action-urls.js'), 'app/action-urls.js')
+  resolveStoreModules(require('@/store/app/actions.js'), 'app/actions.js')
+  resolveStoreModules(require('@/store/app/getters.js'), 'app/getters.js')
+  resolveStoreModules(require('@/store/app/mutation-types.js'), 'app/mutation-types.js')
+  resolveStoreModules(require('@/store/app/mutations.js'), 'app/mutations.js')
 
   // If the environment supports hot reloading...
 
   if (process.client && module.hot) {
     // Whenever any Vuex module is updated...
     module.hot.accept([
-      '@/store/type.js',
       '@/store/index.js',
-      '@/store/autho/index.js',
-      '@/store/autho/getters.js',
-      '@/store/autho/action-types.js',
-      '@/store/autho/mutation-types.js',
-      '@/store/autho/mutations.js',
-      '@/store/autho/actions.js',
-      '@/store/main/action-types.js',
-      '@/store/main/actions.js',
-      '@/store/main/getter-types.js',
-      '@/store/main/getters.js',
-      '@/store/main/mutation-types.js',
-      '@/store/main/mutations.js',
-      '@/store/main/state.js',
-      '@/store/autho/action-urls.js',
-      '@/store/main/scaduler/getter-types.js',
-      '@/store/main/scaduler/actions.js',
-      '@/store/main/scaduler/mutation-types.js',
-      '@/store/main/scaduler/mutations.js',
-      '@/store/main/scaduler/action-types.js',
-      '@/store/main/scaduler/state.js',
-      '@/store/main/scaduler/getters.js',
-      '@/store/main/scaduler/posts/getter-types.js',
-      '@/store/main/scaduler/posts/mutation-types.js',
-      '@/store/main/scaduler/posts/mutations.js',
-      '@/store/main/scaduler/posts/state.js',
-      '@/store/main/scaduler/posts/actions.js',
-      '@/store/main/scaduler/posts/action-types.js',
-      '@/store/main/scaduler/posts/getters.js',
+      '@/store/app/action-types.js',
+      '@/store/app/action-urls.js',
+      '@/store/app/actions.js',
+      '@/store/app/getters.js',
+      '@/store/app/mutation-types.js',
+      '@/store/app/mutations.js',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()
