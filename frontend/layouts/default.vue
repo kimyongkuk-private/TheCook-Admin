@@ -4,7 +4,6 @@
       :mini-variant.sync="toolbarData.miniVariant"
       :clipped="toolbarData.clipped"
       v-model="toolbarData.drawer"
-      fixed
       app
     >
       <v-container v-if="!toolbarData.miniVariant" class="text-xs-center">
@@ -33,8 +32,9 @@
         <v-footer
           inset
           fixed
-          class="pa-3 justify-center">
-          <span class="pa-1">한국어</span>|<span  class="pa-1">汉浯</span>  
+          class="pa-3 justify-center"
+          v-if="!toolbarData.miniVariant">
+          <span class="pa-1">한국어</span>|<span class="pa-1">汉浯</span>  
         </v-footer>
     </v-navigation-drawer>
     <v-toolbar fixed app :clipped-left="toolbarData.clipped" class="nav">
@@ -61,13 +61,6 @@
       <v-toolbar-title  v-text="toolbarData.title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <AlertBadge/>
-      <v-btn
-        icon
-        router
-        to="/login"
-      >
-        <v-icon>lock_open</v-icon>
-      </v-btn>
       <v-btn
         icon
         @click.stop="toolbarData.rightDrawer = !toolbarData.rightDrawer"
@@ -115,7 +108,7 @@
 
       </v-list>
     </v-navigation-drawer>
-<Footer></Footer>
+<Footer/>
   </v-app>
 </template>
 
@@ -142,12 +135,13 @@ export default {
       },
       items: [
         { icon: 'home', title: '홈', to: '/' },
-        { icon: 'bubble_chart', title: '제품', to: '/open/production' },
-        { icon: 'apps', title: '프로모션', to: '/open/promotion' }
+        { icon: 'bubble_chart', title: '제품', to: '/public/production' },
+        { icon: 'apps', title: '프로모션', to: '/public/promotion' }
       ],
       itemsRight: [
+        { icon: 'rss_feed', title: '내정보', to: '/private/profile' },
         { icon: 'rss_feed', title: '피드', to: '/private/feeds' },
-        { icon: 'calendar_today', title: '스케줄', to: '/private/scaduler' }
+        { icon: 'calendar_today', title: '스케줄', to: '/private/scheduler' }
       ]
     }
   },

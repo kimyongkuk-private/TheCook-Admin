@@ -30,10 +30,21 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { LoginHandler } from '@/plugins/errHandler'
 
 export default {
-  middleware: 'notAuthenticated',
+  middleware: 'notAuthenticated.login',
   layout: 'login',
+  // fetch ({ store, params }) {
+  //   return new Promise(
+  //     (resolve, reject) => {
+  //       if (params) {
+  //         resolve('1')
+  //       } else {
+  //         reject(new Error('something bad happened'))
+  //       }
+  //     })
+  // },
   data: () => ({
     appInfo: {
       title: '더쿡 관리자페이지',
@@ -49,7 +60,7 @@ export default {
       signIn: 'signin_action'
     }),
     async signInMethod (userData) {
-      await this.signIn(userData).then(response => this.$router.push('/'))
+      await this.signIn(userData).then(response => this.$router.push('/')).catch(error => { LoginHandler(error) })
     }
   }
 }

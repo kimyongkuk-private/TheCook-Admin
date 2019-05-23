@@ -1,17 +1,14 @@
 import {
   SET_SIGNIN_MUTATION,
   SET_SIGNOUT_MUTATION
-} from './mutation-types'
+} from './values/mutation-types'
 
 export default {
   [SET_SIGNIN_MUTATION] (state, payload) {
     SetLogin(state, payload)
   },
-  [SET_SIGNOUT_MUTATION] (state) {
+  async [SET_SIGNOUT_MUTATION] (state) {
     SetLogout(state)
-  },
-  setAuth (state, usertoken) {
-    state.userState.usertoken = usertoken
   },
   addError: (state, error) => state.errors.unshift(error),
   popError: (state) => state.errors.pop()
@@ -25,16 +22,20 @@ export default {
 function SetLogin (state, payload) {
   state.userState.userSign = true
   state.userState.userName = payload.username
-  state.userState.userToken = payload.token
+  state.userState.userIdx = payload.id
+  localStorage.setItem('LS_TOKEN', payload.token)
 }
 /**
  * Autho SET_LOGOUT Function
  * @param payload{ }
  * @returns ?
  */
-function SetLogout (state) {
+async function SetLogout (state) {
   state.userState.userSign = false
   state.userState.userName = null
-  state.userState.userToken = null
   localStorage.removeItem('LS_TOKEN')
 }
+
+// return new Promise(function (resolve, reject) {
+//   resolve(data)
+// })

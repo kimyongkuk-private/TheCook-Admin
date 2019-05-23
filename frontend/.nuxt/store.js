@@ -19,25 +19,53 @@ void (function updateModules() {
   // Enforce store modules
   store.modules = store.modules || {}
 
-  resolveStoreModules(require('@/store/app/action-types.js'), 'app/action-types.js')
-  resolveStoreModules(require('@/store/app/action-urls.js'), 'app/action-urls.js')
-  resolveStoreModules(require('@/store/app/actions.js'), 'app/actions.js')
-  resolveStoreModules(require('@/store/app/getters.js'), 'app/getters.js')
-  resolveStoreModules(require('@/store/app/mutation-types.js'), 'app/mutation-types.js')
-  resolveStoreModules(require('@/store/app/mutations.js'), 'app/mutations.js')
+  resolveStoreModules(require('@/store/mutations.js'), 'mutations.js')
+  resolveStoreModules(require('@/store/actions.js'), 'actions.js')
+  resolveStoreModules(require('@/store/getters.js'), 'getters.js')
+  resolveStoreModules(require('@/store/scheduler/getters.js'), 'scheduler/getters.js')
+  resolveStoreModules(require('@/store/feeds/state.js'), 'feeds/state.js')
+  resolveStoreModules(require('@/store/values/action-urls.js'), 'values/action-urls.js')
+  resolveStoreModules(require('@/store/values/action-types.js'), 'values/action-types.js')
+  resolveStoreModules(require('@/store/feeds/mutations.js'), 'feeds/mutations.js')
+  resolveStoreModules(require('@/store/feeds/getters.js'), 'feeds/getters.js')
+  resolveStoreModules(require('@/store/feeds/actions.js'), 'feeds/actions.js')
+  resolveStoreModules(require('@/store/scheduler/actions.js'), 'scheduler/actions.js')
+  resolveStoreModules(require('@/store/scheduler/state.js'), 'scheduler/state.js')
+  resolveStoreModules(require('@/store/scheduler/mutations.js'), 'scheduler/mutations.js')
+  resolveStoreModules(require('@/store/values/mutation-types.js'), 'values/mutation-types.js')
+  resolveStoreModules(require('@/store/feeds/values/action-types.js'), 'feeds/values/action-types.js')
+  resolveStoreModules(require('@/store/scheduler/values/action-types.js'), 'scheduler/values/action-types.js')
+  resolveStoreModules(require('@/store/scheduler/values/action-urls.js'), 'scheduler/values/action-urls.js')
+  resolveStoreModules(require('@/store/scheduler/values/mutation-types.js'), 'scheduler/values/mutation-types.js')
+  resolveStoreModules(require('@/store/feeds/values/mutation-types.js'), 'feeds/values/mutation-types.js')
+  resolveStoreModules(require('@/store/feeds/values/action-urls.js'), 'feeds/values/action-urls.js')
 
   // If the environment supports hot reloading...
 
   if (process.client && module.hot) {
     // Whenever any Vuex module is updated...
     module.hot.accept([
+      '@/store/mutations.js',
+      '@/store/actions.js',
       '@/store/index.js',
-      '@/store/app/action-types.js',
-      '@/store/app/action-urls.js',
-      '@/store/app/actions.js',
-      '@/store/app/getters.js',
-      '@/store/app/mutation-types.js',
-      '@/store/app/mutations.js',
+      '@/store/getters.js',
+      '@/store/scheduler/getters.js',
+      '@/store/feeds/state.js',
+      '@/store/values/action-urls.js',
+      '@/store/values/action-types.js',
+      '@/store/feeds/mutations.js',
+      '@/store/feeds/getters.js',
+      '@/store/feeds/actions.js',
+      '@/store/scheduler/actions.js',
+      '@/store/scheduler/state.js',
+      '@/store/scheduler/mutations.js',
+      '@/store/values/mutation-types.js',
+      '@/store/feeds/values/action-types.js',
+      '@/store/scheduler/values/action-types.js',
+      '@/store/scheduler/values/action-urls.js',
+      '@/store/scheduler/values/mutation-types.js',
+      '@/store/feeds/values/mutation-types.js',
+      '@/store/feeds/values/action-urls.js',
     ], () => {
       // Update `root.modules` with the latest definitions.
       updateModules()

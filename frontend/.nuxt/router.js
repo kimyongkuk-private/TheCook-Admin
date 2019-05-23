@@ -2,10 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _20dc02b3 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
-const _e9702e50 = () => interopDefault(import('..\\pages\\private\\feeds.vue' /* webpackChunkName: "pages_private_feeds" */))
-const _30885784 = () => interopDefault(import('..\\pages\\private\\scaduler.vue' /* webpackChunkName: "pages_private_scaduler" */))
-const _57345f9c = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _78d1feba = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
+const _7e973aba = () => interopDefault(import('..\\pages\\error\\500.vue' /* webpackChunkName: "pages_error_500" */))
+const _1918ce30 = () => interopDefault(import('..\\pages\\private\\feeds.vue' /* webpackChunkName: "pages_private_feeds" */))
+const _0fc8073c = () => interopDefault(import('..\\pages\\private\\profile.vue' /* webpackChunkName: "pages_private_profile" */))
+const _20db728e = () => interopDefault(import('..\\pages\\private\\scheduler.vue' /* webpackChunkName: "pages_private_scheduler" */))
+const _3de0b6d8 = () => interopDefault(import('..\\pages\\public\\production.vue' /* webpackChunkName: "pages_public_production" */))
+const _3c3c1e58 = () => interopDefault(import('..\\pages\\public\\promotion.vue' /* webpackChunkName: "pages_public_promotion" */))
+const _0c2144e8 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
 
@@ -83,19 +87,35 @@ export function createRouter() {
 
     routes: [{
       path: "/login",
-      component: _20dc02b3,
+      component: _78d1feba,
       name: "login"
     }, {
+      path: "/error/500",
+      component: _7e973aba,
+      name: "error-500"
+    }, {
       path: "/private/feeds",
-      component: _e9702e50,
+      component: _1918ce30,
       name: "private-feeds"
     }, {
-      path: "/private/scaduler",
-      component: _30885784,
-      name: "private-scaduler"
+      path: "/private/profile",
+      component: _0fc8073c,
+      name: "private-profile"
+    }, {
+      path: "/private/scheduler",
+      component: _20db728e,
+      name: "private-scheduler"
+    }, {
+      path: "/public/production",
+      component: _3de0b6d8,
+      name: "public-production"
+    }, {
+      path: "/public/promotion",
+      component: _3c3c1e58,
+      name: "public-promotion"
     }, {
       path: "/",
-      component: _57345f9c,
+      component: _0c2144e8,
       name: "index"
     }],
 
