@@ -2,14 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _78d1feba = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
-const _7e973aba = () => interopDefault(import('..\\pages\\error\\500.vue' /* webpackChunkName: "pages_error_500" */))
-const _1918ce30 = () => interopDefault(import('..\\pages\\private\\feeds.vue' /* webpackChunkName: "pages_private_feeds" */))
-const _0fc8073c = () => interopDefault(import('..\\pages\\private\\profile.vue' /* webpackChunkName: "pages_private_profile" */))
-const _20db728e = () => interopDefault(import('..\\pages\\private\\scheduler.vue' /* webpackChunkName: "pages_private_scheduler" */))
-const _3de0b6d8 = () => interopDefault(import('..\\pages\\public\\production.vue' /* webpackChunkName: "pages_public_production" */))
-const _3c3c1e58 = () => interopDefault(import('..\\pages\\public\\promotion.vue' /* webpackChunkName: "pages_public_promotion" */))
-const _0c2144e8 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _40a13f64 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
+const _208f96fc = () => interopDefault(import('..\\pages\\error\\500.vue' /* webpackChunkName: "pages_error_500" */))
+const _766d6347 = () => interopDefault(import('..\\pages\\private\\feeds.vue' /* webpackChunkName: "pages_private_feeds" */))
+const _890e944a = () => interopDefault(import('..\\pages\\private\\profile.vue' /* webpackChunkName: "pages_private_profile" */))
+const _b9ca1526 = () => interopDefault(import('..\\pages\\private\\scheduler.vue' /* webpackChunkName: "pages_private_scheduler" */))
+const _7fbf8c92 = () => interopDefault(import('..\\pages\\public\\production.vue' /* webpackChunkName: "pages_public_production" */))
+const _a771d3d6 = () => interopDefault(import('..\\pages\\public\\promotion.vue' /* webpackChunkName: "pages_public_promotion" */))
+const _76f99c4d = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
 
@@ -87,35 +87,35 @@ export function createRouter() {
 
     routes: [{
       path: "/login",
-      component: _78d1feba,
+      component: _40a13f64,
       name: "login"
     }, {
       path: "/error/500",
-      component: _7e973aba,
+      component: _208f96fc,
       name: "error-500"
     }, {
       path: "/private/feeds",
-      component: _1918ce30,
+      component: _766d6347,
       name: "private-feeds"
     }, {
       path: "/private/profile",
-      component: _0fc8073c,
+      component: _890e944a,
       name: "private-profile"
     }, {
       path: "/private/scheduler",
-      component: _20db728e,
+      component: _b9ca1526,
       name: "private-scheduler"
     }, {
       path: "/public/production",
-      component: _3de0b6d8,
+      component: _7fbf8c92,
       name: "public-production"
     }, {
       path: "/public/promotion",
-      component: _3c3c1e58,
+      component: _a771d3d6,
       name: "public-promotion"
     }, {
       path: "/",
-      component: _0c2144e8,
+      component: _76f99c4d,
       name: "index"
     }],
 

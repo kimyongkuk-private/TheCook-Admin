@@ -99,7 +99,7 @@
     </v-toolbar>
 
         <v-container fluid grid-list-md>
-            <v-data-table :pagination.sync="sort" :headers="header" :items="feeds"  item-key="id" :search="search"  :hide-headers="false" :class="{mobile: isMobile}" :expand="expand">
+            <v-data-table :pagination.sync="sort" :headers="header" :items="Object.values(feeds)"  :item-key="Object.values(feeds).id" :search="search"  :hide-headers="false" :class="{mobile: isMobile}" :expand="expand">
               <template slot="items" slot-scope="props">
                 <tr v-if="!isMobile"  @click="props.expanded = !props.expanded"
                 style="getColorByPriority(props.item.priority)"
@@ -142,8 +142,8 @@
                                   </v-list-tile-content>
                                   <v-spacer/><v-spacer/>
                                   <v-list-tile-content>
-                                    <v-list-tile-sub-title class="body-2 mr-2 text-xs-right grey--text darken-3">게시됨 {{ createTimeFormat(props.item.created) }}</v-list-tile-sub-title>
-                                    <v-list-tile-sub-title class="body-2 mr-2 text-xs-right grey--text darken-3" v-if="!(createTimeFormat(props.item.created) == createTimeFormat(props.item.updated) ? true : false)">수정됨 {{ createTimeFormat(props.item.updated) }}</v-list-tile-sub-title>
+                                    <v-list-tile-sub-title class="body-2 mr-2 text-xs-right grey--text darken-3">게시됨 {{ $moment(props.item.created).format('YYYY.MM.DD HH:mm:ss') }}</v-list-tile-sub-title>
+                                    <v-list-tile-sub-title class="body-2 mr-2 text-xs-right grey--text darken-3" v-if="!( props.item.created == props.item.updated ? true : false)">수정됨 {{ $moment(props.item.updated).format('YYYY.MM.DD HH:mm:ss') }}</v-list-tile-sub-title>
                                   </v-list-tile-content>
                                 </v-list-tile>
                               </v-card-actions>
@@ -245,11 +245,11 @@ export default {
   },
   data: function () {
     return {
+      dialog: false,
       sort: { sortBy: 'id', descending: 'true' },
       datePck: false,
       expand: false,
       search: '',
-      dialog: false,
       cardMenuStatus: -1,
       cardMenuItems: [
         { title: '수정',
@@ -311,15 +311,19 @@ export default {
     },
     getFeeds () {
       this.$axios.get('api/feeds/conversations/').then((response) => {
-        this.feeds = response.data
-        console.log('data:', response.data)
+        this.feeds = JSON.parse(response.data)
+        console.log(JSON.parse(response.data))
         this.readall()
       })
     },
     listen () {
       myChannel.bind('an_event', (data) => {
-        this.feeds.push(data)
-        this.$axios.post('api/feeds/conversations/' + data.id + '/delivered', this.queryParams({ socket_id: socketId }))
+        console.log('ddd:', Object.entries(data))
+        this.$axios.post('api/feeds/conversations/' + Object.values(data).id + '/delivered', this.queryParams({ socket_id: socketId }))
+      })
+      myChannel.bind('deleted_message', (data) => {
+        console.log(JSON.parse(this.feeds))
+        console.log('ss:', data)
       })
       myChannel.bind('delivered_message', (data) => {
         for (var i = 0; i < this.feeds.length; i++) {

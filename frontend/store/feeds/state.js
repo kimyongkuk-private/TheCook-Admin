@@ -14,6 +14,9 @@ export default () => ({
       text: '수정시간',
       value: 'updated'
     }
-  ]
+  ],
+  dialog: {
+    title: null
+  }
 })
 // useridx를 토큰에서 빼내는데 실패

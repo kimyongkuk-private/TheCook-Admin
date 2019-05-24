@@ -35,6 +35,7 @@ module.exports = {
   plugins: [
     { src: '~/plugins/axios.js' },
     { src: '~/plugins/vuetify.js' },
+    { src: '~/plugins/moment.js'},
     { src: '~/plugins/sw.js', ssr: false }
   ],
   css: ['~/assets/style/app.styl'],
