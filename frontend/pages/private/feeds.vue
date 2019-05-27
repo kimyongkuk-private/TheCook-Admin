@@ -297,8 +297,9 @@ export default {
   fetch ({ store, params }) {
   },
   async created () {
-    // let response = await axios.get('http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/api/feeds/feedlist/', localStorage.getItem('LS_TOKEN'))
+    // let response = await this.$axios.get('http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/api/feeds/feedlist/', localStorage.getItem('LS_TOKEN'))
     // this.feeds = response.data.results
+    // console.log(response)
   },
   mounted () {
     // not working ServerSide
@@ -318,17 +319,18 @@ export default {
     },
     listen () {
       myChannel.bind('an_event', (data) => {
-        console.log('ddd:', Object.entries(data))
-        this.$axios.post('api/feeds/conversations/' + Object.values(data).id + '/delivered', this.queryParams({ socket_id: socketId }))
+        console.log('an_event:', data)
+        this.$axios.post('api/feeds/conversations/' + data.id + '/delivered', this.queryParams({ socket_id: socketId }))
       })
       myChannel.bind('deleted_message', (data) => {
-        console.log(JSON.parse(this.feeds))
-        console.log('ss:', data)
+        this.$delete(this.feeds, data.id)
+        console.log(this.feeds)
       })
       myChannel.bind('delivered_message', (data) => {
         for (var i = 0; i < this.feeds.length; i++) {
           if (this.feeds[i].id === data.id) {
             this.feeds[i].status = data.status
+            console.log('delivered_message', data)
           }
         }
       })
@@ -351,7 +353,11 @@ export default {
       // this.queryParams({ message: this.message })
       this.$axios.post('api/feeds/conversation/', form, config)
         .then(response => {
+          console.log(this.feeds)
+          console.log(response.data)
+          console.log(JSON.stringify(response.data))
           this.newFeed.reset()
+          this.feeds[response.data.id] = response.data
         })
     },
     queryParams (source) {
