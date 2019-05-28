@@ -314,10 +314,16 @@ export default {
     },
     eventBind () {
       feedChannel.bind('an_event', (data) => {
-        this.$axios.post('api/feeds/conversations/' + data.id + '/delivered', this.queryParams({ socket_id: socketId }))
+        this.$axios.post('api/feeds/conversations/' + data.id + '/delivered', this.queryParams({ socket_id: socketId })).then((response) => {
+          console.log(response)
+        })
+        this.$set(this.feeds, data.id)
+        this.feeds[data.id] = data
+        console.log(data)
       })
       feedChannel.bind('deleted_message', (data) => {
         this.$delete(this.feeds, data.id)
+        console.log(data)
       })
       feedChannel.bind('delivered_message', (data) => {
         for (var i = 0; i < this.feeds.length; i++) {
@@ -325,6 +331,10 @@ export default {
             this.feeds[i].status = data.status
           }
         }
+      })
+      feedChannel.bind('updated_message', (data) => {
+        this.feeds[data.id] = data
+        console.log(data)
       })
     },
     readall () {

@@ -23,4 +23,3 @@ export default () => ({
     title: null
   }
 })
-// useridx를 토큰에서 빼내는데 실패
