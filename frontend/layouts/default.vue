@@ -4,6 +4,7 @@
       :mini-variant.sync="toolbarData.miniVariant"
       :clipped="toolbarData.clipped"
       v-model="toolbarData.drawer"
+      fixed
       app
     >
       <v-container v-if="!toolbarData.miniVariant" class="text-xs-center">

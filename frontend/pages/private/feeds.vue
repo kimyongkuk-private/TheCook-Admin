@@ -5,7 +5,8 @@
             <v-card-title>
                   <v-text-field
                     label="제목"
-                    :counter="20"
+                    counter
+                    maxlength="25"
                     required
                     v-model="createData.title"
                   ></v-text-field>
@@ -14,7 +15,8 @@
                           <v-textarea
                           box
                           label="내용"
-                          :counter="255"
+                          counter
+                          maxlength="255"
                           required
                           v-model="createData.content"
                         ></v-textarea>
@@ -89,7 +91,7 @@
                       v-model="formatDate"
                       label="Date"
                       persistent-hint
-                      @blur="date = parsedDate"
+                      readonly
                       v-on="on"
                     ></v-text-field>
               </template>
@@ -99,7 +101,7 @@
     </v-toolbar>
 
         <v-container fluid grid-list-md>
-            <v-data-table :pagination.sync="sort" :headers="header" :items="Object.values(feeds)"  :item-key="Object.values(feeds).id" :search="search"  :hide-headers="false" :class="{mobile: isMobile}" :expand="expand">
+            <v-data-table :pagination.sync="sort" :headers="header" :items="Object.values(feeds)"  :item-key="Object.values(feeds).id" :search="search"  :hide-headers="true" :class="{mobile: isMobile}" :expand="expand">
               <template slot="items" slot-scope="props">
                 <tr v-if="!isMobile"  @click="props.expanded = !props.expanded"
                 :style="getColorByPriority(props.item.priority)"
@@ -134,7 +136,7 @@
                                   <v-list-tile-avatar color="grey darken-3">
                                     <v-img
                                       class="elevation-6"
-                                      v-bind:src="userIcon(props.item.name)"
+                                      v-bind:src="userIcon(props.item.name, 'pc')"
                                     ></v-img>
                                   </v-list-tile-avatar>
                                   <v-list-tile-content>
@@ -156,10 +158,9 @@
                               class="mx-auto"
                               color="#424242"
                               dark
-                              max-width="400"
+                              max-width="calc(100vw - 32px)"
                             >
                               <v-card-title>
-                       
                                 <v-icon
                                   small
                                   left
@@ -175,7 +176,7 @@
                                           <v-list-tile-title>{{ props.item.name }}</v-list-tile-title>
                                         </v-list-tile-content>
                                     <v-spacer/><v-spacer/>
-                                      <FeedVert :props="props"/>
+                                    <FeedVert :itemData="props" :func="defDelete"/>
                                       
                               </v-card-title>
 
@@ -195,9 +196,16 @@
                 </tr>
               </template>
                 <template v-slot:expand="props">
-                  <v-card-title primary-title class="body-2">
-                      <div> {{ props.item.content }} </div>
-                  </v-card-title>
+                  <v-card
+                    class="mx-auto"
+                    color="#424242"
+                    dark
+                    max-width="calc(100vw - 32px)"
+                  >
+                    <v-card-text  primary-title class="body-2">
+                      {{ props.item.content }}
+                    </v-card-text>
+                  </v-card>
                 </template>
               <v-alert slot="no-results" :value="true" color="error" icon="warning">
                 "{{ search }}"를 포함한 결과를 찾을 수 없습니다 
@@ -339,7 +347,7 @@ export default {
     getColorByPriority (status) {
       return { color: `${this.priority[status]}` }
     },
-    userIcon (id) {
+    userIcon (id, device) {
       return 'https://ui-avatars.com/api/?name=' + id + '&font-size=0.33&length=3'
     }
   },

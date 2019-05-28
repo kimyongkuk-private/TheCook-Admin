@@ -3,8 +3,12 @@ export default () => ({
   date: new Date().toISOString().substr(0, 10),
   headers: [
     {
-      text: 'ID',
-      value: 'id'
+      text: '제목',
+      value: 'title'
+    },
+    {
+      text: '내용',
+      value: 'content'
     },
     {
       text: '작성시간',
