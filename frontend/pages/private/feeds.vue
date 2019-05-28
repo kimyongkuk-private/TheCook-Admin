@@ -313,7 +313,7 @@ export default {
         .catch(error => console.log(error))
     },
     eventBind () {
-      feedChannel.bind('an_event', (data) => {
+      feedChannel.bind('created_message', (data) => {
         this.$axios.post('api/feeds/conversations/' + data.id + '/delivered', this.queryParams({ socket_id: socketId })).then((response) => {
           console.log(response)
         })
