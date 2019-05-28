@@ -12,6 +12,10 @@ void (function updateModules() {
 
   // If store is an exported method = classic mode (deprecated)
 
+  if (typeof store === 'function') {
+    return log.warn('Classic mode for store/ is deprecated and will be removed in Nuxt 3.')
+  }
+
   // Enforce store modules
   store.modules = store.modules || {}
 
@@ -37,6 +41,38 @@ void (function updateModules() {
   resolveStoreModules(require('@/store/feeds/values/action-urls.js'), 'feeds/values/action-urls.js')
 
   // If the environment supports hot reloading...
+
+  if (process.client && module.hot) {
+    // Whenever any Vuex module is updated...
+    module.hot.accept([
+      '@/store/mutations.js',
+      '@/store/actions.js',
+      '@/store/index.js',
+      '@/store/getters.js',
+      '@/store/scheduler/getters.js',
+      '@/store/feeds/state.js',
+      '@/store/values/action-urls.js',
+      '@/store/values/action-types.js',
+      '@/store/feeds/mutations.js',
+      '@/store/feeds/getters.js',
+      '@/store/feeds/actions.js',
+      '@/store/scheduler/actions.js',
+      '@/store/scheduler/state.js',
+      '@/store/scheduler/mutations.js',
+      '@/store/values/mutation-types.js',
+      '@/store/feeds/values/action-types.js',
+      '@/store/scheduler/values/action-types.js',
+      '@/store/scheduler/values/action-urls.js',
+      '@/store/scheduler/values/mutation-types.js',
+      '@/store/feeds/values/mutation-types.js',
+      '@/store/feeds/values/action-urls.js',
+    ], () => {
+      // Update `root.modules` with the latest definitions.
+      updateModules()
+      // Trigger a hot update in the store.
+      window.$nuxt.$store.hotUpdate(store)
+    })
+  }
 })()
 
 // createStore

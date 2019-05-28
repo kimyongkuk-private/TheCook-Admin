@@ -7,7 +7,7 @@
                     label="제목"
                     :counter="20"
                     required
-                    v-model="newFeed.title"
+                    v-model="createData.title"
                   ></v-text-field>
             </v-card-title>
                   <v-card-text>
@@ -16,7 +16,7 @@
                           label="내용"
                           :counter="255"
                           required
-                          v-model="newFeed.content"
+                          v-model="createData.content"
                         ></v-textarea>
                   </v-card-text>
           <v-card-actions d-flex>
@@ -24,7 +24,7 @@
             <v-flex xs6 sm2>
                   <v-select
                     :items="Object.keys(priority)"
-                    v-model="newFeed.priority"
+                    v-model="createData.priority"
                     box
                     label="우선순위"
                   ></v-select>
@@ -32,7 +32,7 @@
             <template>
               <div>
                <v-layout row justify-center>
-                <v-dialog v-model="dialog" persistent max-width="290">
+                <v-dialog v-model="createDialog" persistent max-width="290">
                   <template v-slot:activator="{ on }">
                     <v-btn class="ma-3" dark v-on="on">등록</v-btn>
                   </template>
@@ -41,8 +41,8 @@
                     <v-card-text>게시글을 등록합니다.</v-card-text>
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn color="green darken-1" flat @click="dialog = false">취소</v-btn>
-                      <v-btn color="green darken-1 " flat @click="createNewFeed ()">확인</v-btn>
+                      <v-btn color="green darken-1" flat @click="createDialog = false">취소</v-btn>
+                      <v-btn color="green darken-1 " flat @click="defCreate ()">확인</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
@@ -102,7 +102,7 @@
             <v-data-table :pagination.sync="sort" :headers="header" :items="Object.values(feeds)"  :item-key="Object.values(feeds).id" :search="search"  :hide-headers="false" :class="{mobile: isMobile}" :expand="expand">
               <template slot="items" slot-scope="props">
                 <tr v-if="!isMobile"  @click="props.expanded = !props.expanded"
-                style="getColorByPriority(props.item.priority)"
+                :style="getColorByPriority(props.item.priority)"
                 >
                  <v-hover>
                             <v-card
@@ -115,14 +115,14 @@
                                 <v-icon
                                   small
                                   left
-                                  style="getColorByPriority(props.item.priority)"
+                                  :style="getColorByPriority(props.item.priority)"
                                   class="notranslate"
                                 >
                                   label_important
                                 </v-icon>
                                 <span class="subheading font-weight-light"> {{ props.item.priority }}</span>
                                           <v-spacer></v-spacer>
-                                <dialogMenu :props="props"/>
+                                <FeedVert :itemData="props" :func="defDelete"/>
                               </v-card-title>
 
                               <v-card-text class="title font-weight-light text-xs-center">
@@ -134,7 +134,7 @@
                                   <v-list-tile-avatar color="grey darken-3">
                                     <v-img
                                       class="elevation-6"
-                                      src="https://ui-avatars.com/api/?name=kyk&font-size=0.33"
+                                      v-bind:src="userIcon(props.item.name)"
                                     ></v-img>
                                   </v-list-tile-avatar>
                                   <v-list-tile-content>
@@ -149,10 +149,6 @@
                               </v-card-actions>
                             </v-card>
                              </v-hover>
-                      <!-- <td>{{ props.item.manager }}</td>
-                      <td class="text-xs-right" ><span class="px-1" :key="staff" v-for="staff in props.item.staff">{{staff}}</span></td>
-                      <td class="text-xs-right">{{ props.item.status }}</td>
-                      <td class="text-xs-right">{{ props.item.title }}</td> -->
                 </tr>
                 <tr v-else  @click="props.expanded = !props.expanded"
                  >
@@ -167,7 +163,7 @@
                                 <v-icon
                                   small
                                   left
-                                  style="getColorByPriority(props.item.priority)"
+                                  :style="getColorByPriority(props.item.priority)"
                                   class="notranslate"
                                 >
                                   label_important
@@ -179,7 +175,7 @@
                                           <v-list-tile-title>{{ props.item.name }}</v-list-tile-title>
                                         </v-list-tile-content>
                                     <v-spacer/><v-spacer/>
-                                      <dialogMenu :props="props"/>
+                                      <FeedVert :props="props"/>
                                       
                               </v-card-title>
 
@@ -197,17 +193,6 @@
                               </v-card-actions>
                             </v-card>
                 </tr>
-                <!-- <tr v-else  @click="props.expanded = !props.expanded"
-                 :style="getColorByPriority(props.item.status)">
-                  <td>
-                    <ul class="flex-content" >
-                      <li class="flex-item" data-label="Manager">{{ props.item.manager }}</li>
-                      <li class="flex-item" data-label="Staff"><span class="px-1" :key="staff" v-for="staff in props.item.staff">{{staff}}</span></li>
-                      <li class="flex-item" data-label="Status">{{ props.item.status }}</li>
-                      <li class="flex-item" data-label="Title">{{ props.item.title }}</li>
-                    </ul>
-                  </td>
-                </tr> -->
               </template>
                 <template v-slot:expand="props">
                   <v-card-title primary-title class="body-2">
@@ -224,33 +209,32 @@
 
 
 <script>
-// import axios from 'axios'
 import Pusher from 'pusher-js'
 import { mapGetters } from 'vuex'
 import IsMobile from '@/mixin/isMobile'
-import dialogMenu from '@/components/menu/dialogMenu'
+import FeedVert from '@/components/menu/feedVert'
+import iZtoast from 'izitoast'
 
 let socketId = null
 const config = { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
 const pusher = new Pusher('2ee37955973a41a7c708', { cluster: 'ap3' })
 pusher.connection.bind('connected', function () { socketId = pusher.connection.socket_id })
-const myChannel = pusher.subscribe('a_channel')
+const feedChannel = pusher.subscribe('a_channel')
 
 export default {
   props: ['titleData'],
   mixins: [IsMobile],
   middleware: 'authenticated',
   components: {
-    dialogMenu
+    FeedVert
   },
   data: function () {
     return {
-      dialog: false,
+      createDialog: false,
       sort: { sortBy: 'id', descending: 'true' },
       datePck: false,
       expand: false,
       search: '',
-      cardMenuStatus: -1,
       cardMenuItems: [
         { title: '수정',
           action: function (payload) {
@@ -262,32 +246,18 @@ export default {
           } }
       ],
       feeds: [],
-      // feeds: [{
-      //   id: null,
-      //   value: false,
-      //   manager: null,
-      //   staff: [],
-      //   status: null,
-      //   created: null,
-      //   updated: null,
-      //   title: null,
-      //   content: null,
-      //   photo: null
-      // }],
       priority: {
         '긴급': 'red',
         '중요': 'yellow',
         '보통': 'green'
       },
-      newFeed: {
+      createData: {
         title: null,
         content: null,
         priority: '보통',
-        // photo: null,
         reset: function () {
           this.title = null
           this.content = null
-          // this.photo = null
         }
       }
     }
@@ -296,41 +266,55 @@ export default {
   },
   fetch ({ store, params }) {
   },
-  async created () {
-    // let response = await this.$axios.get('http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/api/feeds/feedlist/', localStorage.getItem('LS_TOKEN'))
-    // this.feeds = response.data.results
-    // console.log(response)
+  created () {
   },
-  mounted () {
-    // not working ServerSide
-    this.getFeeds()
-    this.listen()
+  mounted () { // not working ServerSide
+    this.defRead()
+    this.eventBind()
   },
   methods: {
-    someAction (e) {
-      e.stopPropagation()
+    defCreate () {
+      this.createDialog = false
+      let form = new FormData()
+      form.append('id', this.$store.state.userState.userIdx)
+      form.append('title', this.createData.title)
+      form.append('content', this.createData.content)
+      form.append('priority', this.createData.priority)
+      this.$axios.post('api/feeds/conversation/', form, config)
+        .then(response => {
+          this.createData.reset()
+          this.feeds[response.data.id] = response.data
+        })
     },
-    getFeeds () {
+    defRead () {
       this.$axios.get('api/feeds/conversations/').then((response) => {
         this.feeds = JSON.parse(response.data)
-        console.log(JSON.parse(response.data))
         this.readall()
       })
     },
-    listen () {
-      myChannel.bind('an_event', (data) => {
-        console.log('an_event:', data)
+    defDelete (payload) {
+      this.$axios.post('api/feeds/conversations/' + payload + '/delete')
+        .then(response =>
+          response.status === 200
+            ? iZtoast.show({
+              title: '삭제되었습니다.',
+              position: 'topRight'
+            })
+            : null
+        )
+        .catch(error => console.log(error))
+    },
+    eventBind () {
+      feedChannel.bind('an_event', (data) => {
         this.$axios.post('api/feeds/conversations/' + data.id + '/delivered', this.queryParams({ socket_id: socketId }))
       })
-      myChannel.bind('deleted_message', (data) => {
+      feedChannel.bind('deleted_message', (data) => {
         this.$delete(this.feeds, data.id)
-        console.log(this.feeds)
       })
-      myChannel.bind('delivered_message', (data) => {
+      feedChannel.bind('delivered_message', (data) => {
         for (var i = 0; i < this.feeds.length; i++) {
           if (this.feeds[i].id === data.id) {
             this.feeds[i].status = data.status
-            console.log('delivered_message', data)
           }
         }
       })
@@ -342,24 +326,6 @@ export default {
         }
       }
     },
-    createNewFeed () {
-      this.dialog = false
-      let form = new FormData()
-      console.log(this.$store.state.userState.userIdx)
-      form.append('id', this.$store.state.userState.userIdx)
-      form.append('title', this.newFeed.title)
-      form.append('content', this.newFeed.content)
-      form.append('priority', this.newFeed.priority)
-      // this.queryParams({ message: this.message })
-      this.$axios.post('api/feeds/conversation/', form, config)
-        .then(response => {
-          console.log(this.feeds)
-          console.log(response.data)
-          console.log(JSON.stringify(response.data))
-          this.newFeed.reset()
-          this.feeds[response.data.id] = response.data
-        })
-    },
     queryParams (source) {
       var array = []
       for (var key in source) {
@@ -370,22 +336,12 @@ export default {
     createTimeFormat (date) {
       return new Date(date).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
     },
-    setDate (date) {
-      this.$store.commit('feeds/set_date', date)
+    getColorByPriority (status) {
+      return { color: `${this.priority[status]}` }
+    },
+    userIcon (id) {
+      return 'https://ui-avatars.com/api/?name=' + id + '&font-size=0.33&length=3'
     }
-    // getColorByPriority (status) {
-    //   return { color: `${this.priority[status]}` }
-    // },
-    // async createNewFeed () {
-    //   this.dialog = false
-    //   await axios.post('http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/api/feeds/createfeed/', this.newFeed)
-    //     .catch(error => { throw error })
-    //   // const response = await axios.get('http://ec2-13-209-6-77.ap-northeast-2.compute.amazonaws.com/api/feeds/feedlist/', localStorage.getItem('LS_TOKEN'))
-    //   // this.feeds = response.data.results
-    //   this.newFeed.reset()
-    // }
-  },
-  watch: {
   },
   computed: {
     ...mapGetters({
@@ -394,9 +350,6 @@ export default {
       parsedDate: 'feeds/dateParsed',
       header: 'feeds/headers'
     }),
-    getfeeds () {
-      return this.feeds
-    },
     date: {
       get () {
         return this.feeddate
@@ -405,6 +358,8 @@ export default {
         this.$store.commit('feeds/update_date', value)
       }
     }
+  },
+  watch: {
   }
 }
 </script>
